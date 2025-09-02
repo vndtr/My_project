@@ -2,4 +2,4 @@
 ## Проект
 
 ## Ссылки
-- [Публичная страница на GitHub Pages](https://vndtr.github.io/My_Project/)
+- [Публичная страница на GitHub Pages](https://vndtr.github.io/My_project/)
