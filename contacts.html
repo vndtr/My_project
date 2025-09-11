@@ -15,16 +15,26 @@
 <meta property="og:image" content="https://.../link-to-image.jpg">
 </head>
 <body>
-<header>
-<a href="/">Логотип или название сайта</a>
-<!-- Главное меню навигации -->
-<nav>
-<ul>
-<li><a href="index.html">Главная</a></li>
-<li><a href="about.html">О нас</a></li>
-<li><a href="contacts.html">Контакты</a></li>
-</ul>
-</nav>
+<header class="site-header">
+  <a class="site-header__brand" href="/">Логотип</a>
+  
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="index.html">Главная</a>
+      </li>
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="about.html">О нас</a>
+      </li>
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="contacts.html">Связаться</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <button class="theme-toggle" type="button" aria-pressed="false">
+    🌙 Тема
+  </button>
 </header>
 <main>
 <!-- Простые "хлебные крошки" -->
