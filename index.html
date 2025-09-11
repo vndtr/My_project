@@ -78,37 +78,48 @@
 </footer>
 <script src="main.js" defer></script>
 </body>
-<dialog id="contactDialog" aria-labelledby="dialogTitle">
-  <h2 id="dialogTitle">Обратная связь</h2>
-  <form id="contactForm" method="dialog" novalidate>
-    <label for="name">Имя</label>
-    <input id="name" name="name" type="text" required minlength="2" autocomplete="given-name">
+<dialog id="contactDialog" class="modal" aria-labelledby="dialogTitle">
+  <h2 id="dialogTitle" class="modal__title">Обратная связь</h2>
+  
+  <form id="contactForm" class="modal__form" method="dialog" novalidate>
+    <div class="form__group">
+      <label class="form__label" for="name">Имя</label>
+      <input class="form__input" id="name" name="name" type="text" required>
+    </div>
 
-    <label for="email">E-mail</label>
-    <input id="email" name="email" type="email" required autocomplete="email">
+    <div class="form__group">
+      <label class="form__label" for="email">E-mail</label>
+      <input class="form__input" id="email" name="email" type="email" required>
+    </div>
 
-    <label for="phone">Телефон</label>
-    <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
-           aria-describedby="phoneHelp" placeholder="+7 (___) ___-__-__"
-           required pattern="^\+7 \\d{3}\ \d{3}-\d{2}-\d{2}$">
-    <small id="phoneHelp">Формат: +7 900 000-00-00</small>
+    <div class="form__group">
+      <label class="form__label" for="phone">Телефон</label>
+      <input class="form__input" id="phone" name="phone" type="tel" required>
+      <small class="form__help">Формат: +7 (900) 000-00-00</small>
+    </div>
 
-    <label for="date">Дата</label>
-    <input id="date" name="date" type="date">
+    <div class="form__group">
+      <label class="form__label" for="date">Дата</label>
+      <input class="form__input" id="date" name="date" type="date">
+    </div>
 
-    <label for="topic">Тема</label>
-    <select id="topic" name="topic" required>
-      <option value="">Выберите тему</option>
-      <option>Вопрос</option>
-      <option>Заказ</option>
-    </select>
+    <div class="form__group">
+      <label class="form__label" for="topic">Тема</label>
+      <select class="form__select" id="topic" name="topic" required>
+        <option value="">Выберите тему</option>
+        <option>Вопрос</option>
+        <option>Заказ</option>
+      </select>
+    </div>
 
-    <label for="message">Сообщение</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
+    <div class="form__group">
+      <label class="form__label" for="message">Сообщение</label>
+      <textarea class="form__textarea" id="message" name="message" rows="4" required></textarea>
+    </div>
 
-    <div class="form-actions">
-      <button type="button" id="closeDialog">Закрыть</button>
-      <button type="submit">Отправить</button>
+    <div class="form__actions">
+      <button class="button" type="button" id="closeDialog">Закрыть</button>
+      <button class="button button--accent" type="submit">Отправить</button>
     </div>
   </form>
 </dialog>
