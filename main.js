@@ -209,22 +209,24 @@ function setupThemeSync() {
     });
 }
 
-// Слушатель изменения системной темы
-function watchSystemTheme() {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', (e) => {
-        // Меняем тему только если пользователь не выбрал явно
-        if (!localStorage.getItem(KEY)) {
-            applyTheme(e.matches);
+// Периодическая проверка синхронизации
+function startSyncCheck() {
+    setInterval(() => {
+        const savedTheme = localStorage.getItem(KEY);
+        const currentIsDark = document.body.classList.contains('theme-dark');
+        const shouldBeDark = savedTheme === 'dark';
+        
+        if (currentIsDark !== shouldBeDark) {
+            applyTheme(shouldBeDark);
         }
-    });
+    }, 1000);
 }
 
 // Инициализация при загрузке документа
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
     setupThemeSync();
-    watchSystemTheme();
+    startSyncCheck();
     
     // Обработчик клика по переключателю
     if (btn) {
@@ -238,13 +240,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Периодическая проверка синхронизации (каждую секунду)
-setInterval(() => {
-    const savedTheme = localStorage.getItem(KEY);
-    const currentIsDark = document.body.classList.contains('theme-dark');
-    const shouldBeDark = savedTheme === 'dark';
-    
-    if (currentIsDark !== shouldBeDark) {
-        applyTheme(shouldBeDark);
-    }
-}, 1000);
+// ===== ОСТАЛЬНОЙ КОД ДЛЯ ФОРМЫ И ВАЛИДАЦИИ =====
+// ... (оставьте ваш существующий код для модалки и валидации)
