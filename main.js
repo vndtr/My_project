@@ -59,3 +59,23 @@ phone?.addEventListener('input', (e) => {
 
   e.target.value = formatted;
 });
+// Функция для открытия модального окна
+function openModal() {
+  const modal = document.getElementById('contactDialog');
+  if (modal) {
+    modal.showModal();
+    // Переносим фокус на первое поле формы
+    const firstInput = modal.querySelector('input, select, textarea');
+    if (firstInput) firstInput.focus();
+  } else {
+    console.error('Модальное окно не найдено!');
+  }
+}
+
+// Добавьте обработчики для существующих кнопок (если есть)
+document.addEventListener('DOMContentLoaded', function() {
+  const modalButtons = document.querySelectorAll('[onclick="openModal()"]');
+  modalButtons.forEach(button => {
+    button.addEventListener('click', openModal);
+  });
+});
