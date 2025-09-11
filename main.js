@@ -152,28 +152,99 @@ form?.addEventListener('focusin', (e) => {
     }
 });
 
-// ===== ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ =====
+// ===== ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ С СИНХРОНИЗАЦИЕЙ МЕЖДУ ВКЛАДКАМИ =====
 const KEY = 'theme';
 const btn = document.querySelector('.theme-toggle');
-const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
 
-// Автовыбор темы
-if (localStorage.getItem(KEY) === 'dark' || (!localStorage.getItem(KEY) && prefersDark)) {
-    document.body.classList.add('theme-dark');
-    btn?.setAttribute('aria-pressed', 'true');
+// Функция применения темы
+function applyTheme(isDark) {
+    if (isDark) {
+        document.body.classList.add('theme-dark');
+    } else {
+        document.body.classList.remove('theme-dark');
+    }
+    if (btn) {
+        btn.setAttribute('aria-pressed', String(isDark));
+        // Обновляем иконку
+        const icon = btn.querySelector('.theme-toggle__icon');
+        if (icon) {
+            icon.textContent = isDark ? '☀️' : '🌙';
+        }
+    }
+    localStorage.setItem(KEY, isDark ? 'dark' : 'light');
 }
 
-// Переключение по клику
-btn?.addEventListener('click', () => {
-    const isDark = document.body.classList.toggle('theme-dark');
-    btn.setAttribute('aria-pressed', String(isDark));
-    localStorage.setItem(KEY, isDark ? 'dark' : 'light');
-});
+// Функция переключения темы
+function toggleTheme() {
+    const isDark = !document.body.classList.contains('theme-dark');
+    applyTheme(isDark);
+}
 
-// ===== ОБРАБОТЧИКИ ДЛЯ КНОПОК ОТКРЫТИЯ МОДАЛКИ =====
+// Инициализация темы при загрузке
+function initTheme() {
+    const savedTheme = localStorage.getItem(KEY);
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let isDark = false;
+    
+    if (savedTheme === 'dark') {
+        isDark = true;
+    } else if (savedTheme === 'light') {
+        isDark = false;
+    } else {
+        // Если нет сохранённой темы, используем системную
+        isDark = systemPrefersDark;
+    }
+    
+    applyTheme(isDark);
+}
+
+// Слушатель изменений в localStorage (синхронизация между вкладками)
+function setupThemeSync() {
+    window.addEventListener('storage', (event) => {
+        if (event.key === KEY) {
+            const isDark = event.newValue === 'dark';
+            applyTheme(isDark);
+        }
+    });
+}
+
+// Слушатель изменения системной темы
+function watchSystemTheme() {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+        // Меняем тему только если пользователь не выбрал явно
+        if (!localStorage.getItem(KEY)) {
+            applyTheme(e.matches);
+        }
+    });
+}
+
+// Инициализация при загрузке документа
 document.addEventListener('DOMContentLoaded', function() {
-    const modalButtons = document.querySelectorAll('[onclick="openModal()"]');
-    modalButtons.forEach(button => {
-        button.addEventListener('click', openModal);
+    initTheme();
+    setupThemeSync();
+    watchSystemTheme();
+    
+    // Обработчик клика по переключателю
+    if (btn) {
+        btn.addEventListener('click', toggleTheme);
+    }
+    
+    // Также обрабатываем кнопки с data-атрибутами
+    const themeButtons = document.querySelectorAll('[data-action="toggle-theme"]');
+    themeButtons.forEach(button => {
+        button.addEventListener('click', toggleTheme);
     });
 });
+
+// Периодическая проверка синхронизации (каждую секунду)
+setInterval(() => {
+    const savedTheme = localStorage.getItem(KEY);
+    const currentIsDark = document.body.classList.contains('theme-dark');
+    const shouldBeDark = savedTheme === 'dark';
+    
+    if (currentIsDark !== shouldBeDark) {
+        applyTheme(shouldBeDark);
+    }
+}, 1000);
