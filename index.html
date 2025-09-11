@@ -13,16 +13,26 @@
 </head>
 <body>
 <!-- Шапка сайта -->
-<header>
-<a href="/">Логотип или название сайта</a>
-<!-- Главное меню навигации -->
-<nav>
-<ul>
-<li><a href="index.html">Главная</a></li>
-<li><a href="about.html">О нас</a></li>
-<li><a href="contacts.html">Контакты</a></li>
-</ul>
-</nav>
+<header class="site-header">
+  <a class="site-header__brand" href="/">Логотип</a>
+  
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="index.html">Главная</a>
+      </li>
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="about.html">О нас</a>
+      </li>
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="contacts.html">Связаться</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <button class="theme-toggle" type="button" aria-pressed="false">
+    🌙 Тема
+  </button>
 </header>
 <!-- Уникальное основное содержимое страницы -->
 <main>
@@ -53,12 +63,13 @@
 <h2>Портфолио</h2>
 <p>Примеры наших работ...</p>
 </section>
-<!-- Секция 3 с якорем -->
-<section id="contacts">
-<h2>Контактная информация</h2>
-<p>Наши контакты...</p>
-<a href="contacts.html">Подробнее</a> <!-- Ссылка на отдельную страницу -->
-</section>
+<section class="card">
+  <div class="card__content">
+    <h2>Контактная информация</h2>
+    <p>Наши контакты...</p>
+    <a href="#more" class="button">Подробнее</a>
+    <button class="button button--accent">Написать нам</button>
+  </div>
 </main>
 <!-- Подвал сайта -->
 <footer>
