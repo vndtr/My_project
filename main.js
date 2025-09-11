@@ -239,6 +239,85 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', toggleTheme);
     });
 });
+// ===== КАСТОМНЫЙ ВИДЕО ПЛЕЕР =====
+function initVideoPlayer() {
+    const videoPlayer = document.querySelector('.video-player');
+    if (!videoPlayer) return;
 
-// ===== ОСТАЛЬНОЙ КОД ДЛЯ ФОРМЫ И ВАЛИДАЦИИ =====
-// ... (оставьте ваш существующий код для модалки и валидации)
+    const video = videoPlayer.querySelector('.video-player__video');
+    const playBtn = videoPlayer.querySelector('.video-player__play');
+    const muteBtn = videoPlayer.querySelector('.video-player__mute');
+    const fullscreenBtn = videoPlayer.querySelector('.video-player__fullscreen');
+    const progressBar = videoPlayer.querySelector('.video-player__progress-bar');
+    const seek = videoPlayer.querySelector('.video-player__seek');
+    const volume = videoPlayer.querySelector('.video-player__volume');
+    const currentTime = videoPlayer.querySelector('.video-player__current');
+    const duration = videoPlayer.querySelector('.video-player__duration');
+
+    // Форматирование времени
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Обновление прогресса
+    function updateProgress() {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+        seek.value = percent;
+        currentTime.textContent = formatTime(video.currentTime);
+    }
+
+    // Обновление длительности
+    function updateDuration() {
+        if (!isNaN(video.duration)) {
+            duration.textContent = formatTime(video.duration);
+        }
+    }
+
+    // События
+    video.addEventListener('timeupdate', updateProgress);
+    video.addEventListener('loadedmetadata', updateDuration);
+    video.addEventListener('ended', () => {
+        videoPlayer.classList.remove('video-player--playing');
+    });
+
+    playBtn.addEventListener('click', () => {
+        if (video.paused) {
+            video.play();
+            videoPlayer.classList.add('video-player--playing');
+        } else {
+            video.pause();
+            videoPlayer.classList.remove('video-player--playing');
+        }
+    });
+
+    muteBtn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        videoPlayer.classList.toggle('video-player--muted', video.muted);
+    });
+
+    fullscreenBtn.addEventListener('click', () => {
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        }
+    });
+
+    seek.addEventListener('input', () => {
+        const seekTime = (seek.value / 100) * video.duration;
+        video.currentTime = seekTime;
+    });
+
+    volume.addEventListener('input', () => {
+        video.volume = volume.value;
+    });
+
+    // Инициализация
+    updateDuration();
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    initVideoPlayer();
+});

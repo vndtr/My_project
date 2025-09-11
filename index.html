@@ -48,17 +48,43 @@
 </section>
 
 <section class="card">
-  <div class="card__content">
-    <h2>Наше видео</h2>
-    <div class="media">
-      <video controls preload="metadata" playsinline width="960" height="540" poster="assets/video/poster.jpeg">
-        <source src="assets/video/video.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-      </video>
+    <div class="card__content">
+        <h2>Наше видео</h2>
+        <div class="video-player">
+            <video class="video-player__video" width="960" height="540" poster="assets/video/poster.jpeg">
+                <source src="assets/video/video.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            
+            <div class="video-player__controls">
+                <button class="video-player__button video-player__play" aria-label="Воспроизвести">
+                    <span class="video-player__icon">▶</span>
+                </button>
+                
+                <div class="video-player__progress">
+                    <div class="video-player__progress-bar"></div>
+                    <input type="range" class="video-player__seek" value="0" min="0" max="100" step="0.1">
+                </div>
+                
+                <div class="video-player__time">
+                    <span class="video-player__current">0:00</span>
+                    <span class="video-player__duration">/ 0:00</span>
+                </div>
+                
+                <button class="video-player__button video-player__mute" aria-label="Звук">
+                    <span class="video-player__icon">🔊</span>
+                </button>
+                
+                <input type="range" class="video-player__volume" min="0" max="1" step="0.1" value="1">
+                
+                <button class="video-player__button video-player__fullscreen" aria-label="Полный экран">
+                    <span class="video-player__icon">⛶</span>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
-<!-- Секция 2 с якорем -->
+<!-- Секция 3 с якорем -->
 <section id="portfolio">
 <h2>Портфолио</h2>
 <p>Примеры наших работ...</p>
