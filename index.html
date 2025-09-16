@@ -38,7 +38,7 @@
 <main>
 <h1>Творческое пространство "GSV"</h1>
 
-<!-- Секция 1 с якорем -->
+<!-- Секция 1 услуги -->
 <section class="card">
   <div class="card__content">
     <h2>•‽ Услуги тату мастеров:</h2>
@@ -91,32 +91,35 @@
         </div>
     </div>
 </section>
-<!-- Секция 3 с якорем -->
+<!-- Секция 2 портфолио-->
 <section id="portfolio">
     <h2>Портфолио</h2>
     
-    <div class="portfolio-slider">
-        <div class="slider-container">
-            <div class="slide">
-                <img src="assets/poster.jpeg" alt="Проект 1" loading="lazy">
-                <div class="slide-caption">
-                    <h3>Работы тату мастеро</h3>
-
-                </div>
+    <div class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="assets/pictureLogo.jpeg" alt="Тату работа 1" loading="lazy">
             </div>
-            
-            <div class="slide">
-                <img src="assets/portfolio/slide2.jpg" alt="Проект 2" loading="lazy">
-                <div class="slide-caption">
-                    <h3>Работы пирсиров"</h3>
-                </div>
+            <div class="carousel-slide">
+                <img src="assets/pictureLogo.jpeg" alt="Тату работа 2" loading="lazy">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/pictureLogo.jpeg" alt="Пирсинг 1" loading="lazy">
+                <div class="slide-caption">Тату</div>
             </div>
         </div>
-        
-        <button class="slider-prev">←</button>
-        <button class="slider-next">→</button>
+    
+        <button class="carousel-prev">❮</button>
+        <button class="carousel-next">❯</button>
+
+        <div class="carousel-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
     </div>
 </section>
+<!-- Секция запись-->
 <section class="card">
   <div class="card__content">
     <h2>Запись на Услугу</h2>
@@ -124,12 +127,15 @@
     <button class="button button--accent" type="button" onclick="openModal()">Записаться</button>
   </div>
 </main>
+
 <!-- Подвал сайта -->
 <footer class="site-footer">
   <p>© 2025 Творческое пространство "GSV". Все права защищены.</p>
   <p>Телефон: +7 (444) 444-44-44</p>
 </footer>
+
 <script src="main.js" defer></script>
+
 </body>
 <dialog id="contactDialog" class="modal" aria-labelledby="dialogTitle">
   <h2 id="dialogTitle" class="modal__title">Обратная связь</h2>

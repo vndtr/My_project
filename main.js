@@ -321,3 +321,59 @@ function initVideoPlayer() {
 document.addEventListener('DOMContentLoaded', function() {
     initVideoPlayer();
 });
+class Carousel {
+    constructor(container) {
+        this.container = container;
+        this.slides = container.querySelector('.carousel-container');
+        this.slideItems = container.querySelectorAll('.carousel-slide');
+        this.prevBtn = container.querySelector('.carousel-prev');
+        this.nextBtn = container.querySelector('.carousel-next');
+        this.dots = container.querySelectorAll('.dot');
+        this.currentSlide = 0;
+        
+        this.init();
+    }
+    
+    init() {
+        this.prevBtn.addEventListener('click', () => this.prev());
+        this.nextBtn.addEventListener('click', () => this.next());
+        
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.goToSlide(index));
+        });
+        
+        this.updateSlide();
+    }
+    
+    next() {
+        this.currentSlide = (this.currentSlide + 1) % this.slideItems.length;
+        this.updateSlide();
+    }
+    
+    prev() {
+        this.currentSlide = (this.currentSlide - 1 + this.slideItems.length) % this.slideItems.length;
+        this.updateSlide();
+    }
+    
+    goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlide();
+    }
+    
+    updateSlide() {
+        const offset = -this.currentSlide * 100;
+        this.slides.style.transform = `translateX(${offset}%)`;
+        
+        this.dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
+    }
+}
+
+// Инициализация карусели
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = new Carousel(document.querySelector('.carousel'));
+    
+    // Автопрокрутка
+    setInterval(() => carousel.next(), 5000);
+});
