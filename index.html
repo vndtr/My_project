@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Адаптирует страницу для мобильных устройств-->
 <title>Главная - CAS</title>
-<meta name="description" content="Тату салон 'CAS'">
+<meta name="description" content="Творческое пространство 'GSV'">
 <link rel="icon" href="assets/iconMoon.ico" type="image/x-icon"> <!--иконка сайта-->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Тату салон 'CAS'">
-<meta property="og:description" content="Тату салон в Москве">
+<meta property="og:title" content="Тату салон 'GSV'">
+<meta property="og:description" content="Творческое пространство в Москве">
 <meta property="og:image" content="assets/pictureLogo.jpeg">
 </head>
 <body>
 <!-- Шапка сайта -->
 <header class="site-header">
    <!-- Логотип -->
-  <a class="site-header__brand" href="https://vndtr.github.io/My_project/index.html">CAS</a>
+  <a class="site-header__brand" href="https://vndtr.github.io/My_project/index.html">GSV</a>
     <ul class="site-nav__list">
       <li class="site-nav__item">
         <a class="site-nav__link" href="index.html">Главная</a>
@@ -36,14 +36,22 @@
 </header>
 <!-- Уникальное основное содержимое страницы -->
 <main>
-<h1>Добро пожаловать на наш сайт!</h1>
+<h1>Творческое пространство "GSV"</h1>
+
 <!-- Секция 1 с якорем -->
-<!-- В секциях добавьте обёртки -->
 <section class="card">
   <div class="card__content">
-    <h2>Наши услуги</h2>
-    <p>Описание предоставляемых услуг...</p>
-    <button class="button button--accent" type="button" onclick="openModal()">Связаться с нами</button>
+    <h2>•‽ Услуги тату мастеров:</h2>
+    <p>• Очная консультация </p>
+    <p>• Разработка индивидуального эскиза </p>
+    <p>• Перекрытие неудачной работы</p>
+    <p>• Удаление татуировки </p>
+    <h2>•‽ Услуги пирсиров</h2>
+    <p>• Пирсинг </p>
+    <p>• Консультация мастераа </p>
+    <p>• Даунсайз </p>
+    <p>• Замена украшения </p>
+    <a href="about.html" class="button">Узнать подробнее</a>
   </div>
 </section>
 
@@ -53,24 +61,23 @@
         <div class="video-player">
             <video class="video-player__video" width="960" height="540" poster="assets/video/poster.jpeg">
                 <source src="assets/video/video.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
             </video>
             
-            <div class="video-player__controls">
+            <div class="video-player__controls"><!--Панель управления-->
                 <button class="video-player__button video-player__play" aria-label="Воспроизвести">
                     <span class="video-player__icon">▶</span>
                 </button>
                 
-                <div class="video-player__progress">
+                <div class="video-player__progress"><!--Прогресс-бар-->
                     <div class="video-player__progress-bar"></div>
                     <input type="range" class="video-player__seek" value="0" min="0" max="100" step="0.1">
                 </div>
                 
-                <div class="video-player__time">
+                <div class="video-player__time"><!--Тайминг-->
                     <span class="video-player__current">0:00</span>
                     <span class="video-player__duration">/ 0:00</span>
                 </div>
-                
+                <!--Громкость и полноэкранный режим-->
                 <button class="video-player__button video-player__mute" aria-label="Звук">
                     <span class="video-player__icon">🔊</span>
                 </button>
@@ -86,21 +93,41 @@
 </section>
 <!-- Секция 3 с якорем -->
 <section id="portfolio">
-<h2>Портфолио</h2>
-<p>Примеры наших работ...</p>
+    <h2>Портфолио</h2>
+    
+    <div class="portfolio-slider">
+        <div class="slider-container">
+            <div class="slide">
+                <img src="assets/poster.jpeg" alt="Проект 1" loading="lazy">
+                <div class="slide-caption">
+                    <h3>Работы тату мастеро</h3>
+
+                </div>
+            </div>
+            
+            <div class="slide">
+                <img src="assets/portfolio/slide2.jpg" alt="Проект 2" loading="lazy">
+                <div class="slide-caption">
+                    <h3>Работы пирсиров"</h3>
+                </div>
+            </div>
+        </div>
+        
+        <button class="slider-prev">←</button>
+        <button class="slider-next">→</button>
+    </div>
 </section>
 <section class="card">
   <div class="card__content">
-    <h2>Контактная информация</h2>
-    <p>Наши контакты...</p>
-    <a href="about.html" class="button">Подробнее</a>
-    <button class="button button--accent" type="button" onclick="openModal()">Написать нам</button>
+    <h2>Запись на Услугу</h2>
+    <p>Оставьте заявку и наш менеджер свяжеться с вами</p>
+    <button class="button button--accent" type="button" onclick="openModal()">Записаться</button>
   </div>
 </main>
 <!-- Подвал сайта -->
 <footer class="site-footer">
-  <p>© 2023 Название вашего сайта. Все права защищены.</p>
-  <p>Телефон: +7 (123) 456-78-90</p>
+  <p>© 2025 Творческое пространство "GSV". Все права защищены.</p>
+  <p>Телефон: +7 (444) 444-44-44</p>
 </footer>
 <script src="main.js" defer></script>
 </body>
