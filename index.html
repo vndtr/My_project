@@ -2,21 +2,20 @@
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Главная - Название вашего сайта</title>
-<meta name="description" content="Краткое описание главной страницы вашего сайта">
-<link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Адаптирует страницу для мобильных устройств-->
+<title>Главная - CAS</title>
+<meta name="description" content="Творческое пространство 'GSV'">
+<link rel="icon" href="assets/iconMoon.ico" type="image/x-icon"> <!--иконка сайта-->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Заголовок страницы">
-<meta property="og:description" content="Описание страницы">
-<meta property="og:image" content="https://.../link-to-image.jpg">
+<meta property="og:title" content="Тату салон 'GSV'">
+<meta property="og:description" content="Творческое пространство в Москве">
+<meta property="og:image" content="assets/pictureLogo.jpeg">
 </head>
 <body>
 <!-- Шапка сайта -->
 <header class="site-header">
-  <a class="site-header__brand" href="/">Логотип</a>
-  
-  <nav class="site-nav">
+   <!-- Логотип -->
+  <a class="site-header__brand" href="https://vndtr.github.io/My_project/index.html">GSV</a>
     <ul class="site-nav__list">
       <li class="site-nav__item">
         <a class="site-nav__link" href="index.html">Главная</a>
@@ -29,6 +28,7 @@
       </li>
     </ul>
   </nav>
+  <!-- Кнопка переключения темы -->
  <button class="theme-toggle" type="button" aria-pressed="false">
     <span class="theme-toggle__icon">🌙</span>
     <span class="theme-toggle__text">Тема</span>
@@ -36,50 +36,109 @@
 </header>
 <!-- Уникальное основное содержимое страницы -->
 <main>
-<h1>Добро пожаловать на наш сайт!</h1>
-<!-- Секция 1 с якорем -->
-<!-- В секциях добавьте обёртки -->
+<h1>Творческое пространство "GSV"</h1>
+
+<!-- Секция 1 услуги -->
 <section class="card">
   <div class="card__content">
-    <h2>Наши услуги</h2>
-    <p>Описание предоставляемых услуг...</p>
-    <button class="button button--accent" type="button" onclick="openModal()">Связаться с нами</button>
+    <h2>•‽ Услуги тату мастеров:</h2>
+    <p>• Очная консультация </p>
+    <p>• Разработка индивидуального эскиза </p>
+    <p>• Перекрытие неудачной работы</p>
+    <p>• Удаление татуировки </p>
+    <h2>•‽ Услуги пирсиров</h2>
+    <p>• Пирсинг </p>
+    <p>• Консультация мастераа </p>
+    <p>• Даунсайз </p>
+    <p>• Замена украшения </p>
+    <a href="about.html" class="button">Узнать подробнее</a>
   </div>
 </section>
 
 <section class="card">
-  <div class="card__content">
-    <h2>Наше видео</h2>
-    <div class="media">
-      <video controls preload="metadata" playsinline width="960" height="540" poster="assets/video/poster.jpeg">
-        <source src="assets/video/video.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-      </video>
+    <div class="card__content">
+        <h2>Наше видео</h2>
+        <div class="video-player">
+            <video class="video-player__video" width="960" height="540" poster="assets/video/poster.jpeg">
+                <source src="assets/video/video.mp4" type="video/mp4">
+            </video>
+            
+            <div class="video-player__controls"><!--Панель управления-->
+                <button class="video-player__button video-player__play" aria-label="Воспроизвести">
+                    <span class="video-player__icon">▶</span>
+                </button>
+                
+                <div class="video-player__progress"><!--Прогресс-бар-->
+                    <div class="video-player__progress-bar"></div>
+                    <input type="range" class="video-player__seek" value="0" min="0" max="100" step="0.1">
+                </div>
+                
+                <div class="video-player__time"><!--Тайминг-->
+                    <span class="video-player__current">0:00</span>
+                    <span class="video-player__duration">/ 0:00</span>
+                </div>
+                <!--Громкость и полноэкранный режим-->
+                <button class="video-player__button video-player__mute" aria-label="Звук">
+                    <span class="video-player__icon">🔊</span>
+                </button>
+                
+                <input type="range" class="video-player__volume" min="0" max="1" step="0.1" value="1">
+                
+                <button class="video-player__button video-player__fullscreen" aria-label="Полный экран">
+                    <span class="video-player__icon">⛶</span>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
-<!-- Секция 2 с якорем -->
+<!-- Секция 2 портфолио-->
 <section id="portfolio">
-<h2>Портфолио</h2>
-<p>Примеры наших работ...</p>
+    <h2>Портфолио</h2>
+    
+    <div class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="assets/pictureLogo.jpeg" alt="Тату работа 1" loading="lazy">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/pictureLogo.jpeg" alt="Тату работа 2" loading="lazy">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/pictureLogo.jpeg" alt="Пирсинг 1" loading="lazy">
+                <div class="slide-caption">Тату</div>
+            </div>
+        </div>
+    
+        <button class="carousel-prev">❮</button>
+        <button class="carousel-next">❯</button>
+
+        <div class="carousel-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </div>
 </section>
+<!-- Секция запись-->
 <section class="card">
   <div class="card__content">
-    <h2>Контактная информация</h2>
-    <p>Наши контакты...</p>
-    <a href="about.html" class="button">Подробнее</a>
-    <button class="button button--accent" type="button" onclick="openModal()">Написать нам</button>
+    <h2>Запись на Услугу</h2>
+    <p>Оставьте заявку и наш менеджер свяжеться с вами</p>
+    <button class="button button--accent" type="button" onclick="openModal()">Записаться</button>
   </div>
 </main>
+
 <!-- Подвал сайта -->
 <footer class="site-footer">
-  <p>© 2023 Название вашего сайта. Все права защищены.</p>
-  <p>Телефон: +7 (123) 456-78-90</p>
+  <p>© 2025 Творческое пространство "GSV". Все права защищены.</p>
+  <p>Телефон: +7 (444) 444-44-44</p>
 </footer>
+
 <script src="main.js" defer></script>
+
 </body>
 <dialog id="contactDialog" class="modal" aria-labelledby="dialogTitle">
-  <h2 id="dialogTitle" class="modal__title">Обратная связь</h2>
+  <h2 id="dialogTitle" class="modal__title">Запись</h2>
   
   <form id="contactForm" class="modal__form" method="dialog" novalidate>
     <div class="form__group">
@@ -99,16 +158,17 @@
     </div>
 
     <div class="form__group">
-      <label class="form__label" for="date">Дата</label>
+      <label class="form__label" for="date">Дата рождения</label>
       <input class="form__input" id="date" name="date" type="date">
     </div>
 
     <div class="form__group">
-      <label class="form__label" for="topic">Тема</label>
+      <label class="form__label" for="topic">Услуга</label>
       <select class="form__select" id="topic" name="topic" required>
-        <option value="">Выберите тему</option>
-        <option>Вопрос</option>
-        <option>Заказ</option>
+        <option value="">Выберите услугу</option>
+        <option>Тату</option>
+        <option>Пирсинг</option>
+        <option>Консультация</option>
       </select>
     </div>
 

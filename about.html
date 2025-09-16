@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная - Название вашего сайта</title>
-    <meta name="description" content="Краткое описание главной страницы вашего сайта">
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    <title>О нас - Название вашего сайта</title>
-    <meta name="description" content="Узнайте больше о нашей компании и истории">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Заголовок страницы">
-    <meta property="og:description" content="Описание страницы">
-    <meta property="og:image" content="https://.../link-to-image.jpg">
+<link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Адаптирует страницу для мобильных устройств-->
+<title>Главная - CAS</title>
+<meta name="description" content="Творческое пространство 'GSV'">
+<link rel="icon" href="assets/iconMoon.ico" type="image/x-icon"> <!--иконка сайта-->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Тату салон 'GSV'">
+<meta property="og:description" content="Творческое пространство в Москве">
+<meta property="og:image" content="assets/pictureLogo.jpeg">
 </head>
 <body>
+<!-- Шапка сайта -->
 <header class="site-header">
-  <a class="site-header__brand" href="/">Логотип</a>
-  
-  <nav class="site-nav">
+   <!-- Логотип -->
+  <a class="site-header__brand" href="https://vndtr.github.io/My_project/index.html">GSV</a>
     <ul class="site-nav__list">
       <li class="site-nav__item">
         <a class="site-nav__link" href="index.html">Главная</a>
@@ -31,13 +29,14 @@
       </li>
     </ul>
   </nav>
+  <!-- Кнопка переключения темы -->
  <button class="theme-toggle" type="button" aria-pressed="false">
     <span class="theme-toggle__icon">🌙</span>
     <span class="theme-toggle__text">Тема</span>
 </button>
 </header>
 <main>
-<!-- Простые "хлебные крошки" -->
+<!-- "хлебные крошки" -->
 <nav aria-label="Хлебные крошки">
 <a href="index.html">Главная</a> →
 <span>О нас</span>
@@ -45,16 +44,17 @@
 <h1>О нашей компании</h1>
 <section>
 <h2>Наша история</h2>
-<p>Текст о том, как все начиналось...</p>
+<p>Текст</p>
 </section>
 <section>
 <h2>Наша команда</h2>
-<p>Текст о команде...</p>
+<p>Текст</p>
 </section>
 </main>
-<footer>
-    <p>&copy; 2023 Название вашего сайта. Все права защищены.</p>
-    <p>Телефон: +7 (123) 456-78-90</p>
+<!-- Подвал сайта -->
+<footer class="site-footer">
+  <p>© 2025 Творческое пространство "GSV". Все права защищены.</p>
+  <p>Телефон: +7 (444) 444-44-44</p>
 </footer>
 <script src="main.js"></script>
 </body>
