@@ -189,17 +189,33 @@ footer {
 }
 
 /* Заголовки */
-h1 {
-  color: var(--color-primary);
-  font-size: 2.5rem;
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-4);
+.main-heading {
+    color: var(--color-primary); 
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    margin-bottom: var(--space-5);
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: var(--space-3);
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: var(--space-3);
+.sub-heading {
+    color: var(--color-primary-light);
+    font-size: 1.5rem;
+    margin-top: 0;
+    padding-left: var(--space-3);
+    border-left: 4px solid var(--color-accent);
 }
+
+/* Стили для параграфов */
+.text-paragraph {
+    color: var(--color-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-3);
+    padding: 0 var(--space-2);
+}
+
+
 
 /* Текст */
 p {
@@ -564,3 +580,4 @@ p {
 .dot.active {
     background: white;
 }
+
