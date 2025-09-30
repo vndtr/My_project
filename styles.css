@@ -238,8 +238,6 @@ footer {
     padding: 0 var(--space-2);
 }
 
-
-
 /* Текст */
 p {
   margin-bottom: var(--space-3);
@@ -513,6 +511,50 @@ p {
 
 .video-player--fullscreen .video-player__fullscreen .video-player__icon {
     content: '⛶';
+}
+
+/* Стили для Grid Layout сетка 3x2 */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3 колонки */
+    grid-template-rows: repeat(3, auto);   /* 2 строки */
+    gap: var(--space-3);                   /* Отступы между элементами */
+    margin: var(--space-4) 0;
+}
+
+.grid-item {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.grid-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--color-accent);
+}
+
+.grid-item h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+    font-weight: var(--font-weight-bold);
+}
+
+.grid-item p {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* На мобильных - одна колонка */
+        grid-template-rows: repeat(6, auto); /* 6 строк */
+    }
 }
 
 /* Адаптивность */
