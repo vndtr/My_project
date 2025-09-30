@@ -76,27 +76,35 @@ body {
 
 /* Навигация */
 .site-nav__list {
-  display: flex;
-  list-style: none;
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
+    display: flex; 
+    list-style: none;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+
+    align-items: center; 
+    flex-wrap: wrap; 
 }
 
 .site-nav__link {
-  text-decoration: none;
-  color: var(--color-muted);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius);
-  transition: all 0.3s ease;
-  font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    color: var(--color-muted);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px; 
+    min-width: 80px; 
 }
-
 .site-nav__link:hover {
-  color: var(--color-primary);
-  background: var(--color-card);
+    color: var(--color-primary);
+    background: var(--color-card);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
-
 /* Основное содержимое */
 main {
   max-width: 1200px;
