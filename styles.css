@@ -8,7 +8,7 @@
   --color-accent: #2c2c2c;               /* Синий акцент для кнопок */
   --color-border: #e0e0e0;                /* Светлая граница */
   --color-card: #f8f9fa;                  /* Фон карточек */
-  --color-danger: #d32f2f;                /* Красный для ошибок */
+  --color-danger: #671414;                /* Красный для ошибок */
 
   /* Типографика */
   --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -16,11 +16,11 @@
   --font-weight-bold: 600;
   
   /* Отступы */
-  --space-1: 0.25rem;    /* 4px */
-  --space-2: 0.5rem;     /* 8px */
-  --space-3: 1rem;       /* 16px */
-  --space-4: 1.5rem;     /* 24px */
-  --space-5: 2.5rem;     /* 40px */
+  --space-1: 0.25rem;    
+  --space-2: 0.5rem;     
+  --space-3: 1rem;       
+  --space-4: 1.5rem;    
+  --space-5: 2.5rem;     
 
   /* Скругления и тени */
   --radius-sm: 4px;
@@ -34,10 +34,10 @@
 body.theme-dark {
   --color-bg: #1a1a1a;
   --color-fg: #e0e0e0;
-  --color-muted: #a0a0a0;
-  --color-primary: #d0d0d0;
-  --color-primary-light: #b0b0b0;
-  --color-accent: #4a90e2;
+  --color-muted: #cbc8c8;
+  --color-primary: #b5b1b1;
+  --color-primary-light: #f1e8e8;
+  --color-accent: #491b1b;
   --color-border: #404040;
   --color-card: #2a2a2a;
 }
@@ -186,6 +186,24 @@ footer {
 
 .card__content {
   padding: var(--space-4);
+}
+
+/* Стили для карточек товаров (дополняют существующие .card) */
+.product-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    /* Гарантируем, что карточки не слишком широкие на больших экранах */
+}
+
+/* Эффект при наведении на карточку (Задание 4) */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-accent);
 }
 
 /* Заголовки */
