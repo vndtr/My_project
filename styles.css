@@ -141,6 +141,11 @@ button:hover, .button:hover {
   box-shadow: var(--shadow);
 }
 
+button:active, .button:active {
+    transform: translateY(0); 
+    box-shadow: var(--shadow-sm); 
+}
+
 /* Акцентные кнопки */
 .button--accent {
   background: var(--color-accent);
