@@ -377,3 +377,99 @@ document.addEventListener('DOMContentLoaded', () => {
     // Автопрокрутка
     setInterval(() => carousel.next(), 5000);
 });
+// ===== УПРАВЛЕНИЕ АДАПТИВНОЙ ШАПКОЙ =====
+
+function initHeader() {
+    const header = document.querySelector('.site-header');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navList = document.querySelector('.site-nav__list');
+    let lastScrollY = window.scrollY;
+    let isScrolling;
+
+    // Функция для скрытия/показа шапки при прокрутке
+    function handleScroll() {
+        const currentScrollY = window.scrollY;
+        
+        // Очищаем предыдущий таймер
+        clearTimeout(isScrolling);
+        
+        // Прячем шапку при прокрутке вниз, показываем при прокрутке вверх
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Прокрутка вниз - скрываем шапку
+            header.classList.add('hidden');
+        } else {
+            // Прокрутка вверх - показываем шапку
+            header.classList.remove('hidden');
+        }
+        
+        // Компактный режим при прокрутке
+        if (currentScrollY > 50) {
+            header.classList.add('compact');
+        } else {
+            header.classList.remove('compact');
+        }
+        
+        lastScrollY = currentScrollY;
+        
+        // Устанавливаем таймер для окончания прокрутки
+        isScrolling = setTimeout(() => {
+            header.classList.remove('hidden');
+        }, 1500);
+    }
+
+    // Функция для мобильного меню
+    function toggleMobileMenu() {
+        menuToggle.classList.toggle('active');
+        navList.classList.toggle('active');
+        
+        // Блокируем прокрутку тела при открытом меню
+        document.body.style.overflow = navList.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Функция закрытия мобильного меню при клике на ссылку
+    function closeMobileMenu() {
+        menuToggle.classList.remove('active');
+        navList.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Обработчики событий
+    if (window.innerWidth <= 768) {
+        // Только на мобильных устройствах
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', toggleMobileMenu);
+        }
+        
+        // Закрываем меню при клике на ссылку
+        const navLinks = document.querySelectorAll('.site-nav__link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Закрываем меню при клике вне области
+        document.addEventListener('click', (e) => {
+            if (navList.classList.contains('active') && 
+                !e.target.closest('.site-nav__list') && 
+                !e.target.closest('.menu-toggle')) {
+                closeMobileMenu();
+            }
+        });
+    }
+
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            // На десктопе убираем мобильные классы
+            menuToggle?.classList.remove('active');
+            navList?.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    initHeader();
+});

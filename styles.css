@@ -642,7 +642,6 @@ p {
     animation: pulse 2s infinite;
     cursor: pointer;
 }
-
 /* карусель */
 .carousel {
     position: relative;
@@ -716,50 +715,93 @@ p {
     background: white;
 }
 
-/* адаптивность */
-@media (max-width: 480px) {
-    .flex-card {
-        flex: 1 1 100%; 
-        max-width: none;
-    }
-    
-    .grid-container {
-        gap: var(--space-2);
-    }
-    
-    .positioned-badge {
-        top: 10px;
-        right: 10px;
-        font-size: 0.8rem;
-        padding: var(--space-1) var(--space-2);
-    }
+    /* Шапка */
+ .site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px); /* Размытие фона для лучшей читаемости */
+  transition: all 0.3s ease;
+}
+/* Класс для скрытой шапки при прокрутке */
+.site-header.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* Класс для компактной шапки при прокрутке */
+.site-header.compact {
+  padding: var(--space-2) var(--space-4);
+  box-shadow: var(--shadow);
+}
+/* Логотип */
+.site-header__brand {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: font-size 0.3s ease;
 }
 
 
-/* Адаптивность для мобильных устройств */
+/* Мобильные устройства */
 @media (max-width: 768px) {
-      /* Шапка */
-    .site-header {
-        padding: var(--space-3);
-        flex-direction: column;
-        gap: var(--space-3);
-    }
+
+  .site-header {
+    padding: var(--space-2) var(--space-3);
+    position: fixed; /* Фиксированная позиция на мобильных */
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+   main {
+    margin-top: 70px; /* Высота шапки на мобильных */
+  }
+  
+  .site-header__brand {
+    font-size: 1.3rem;
+  }
     
-    .site-nav__list {
-        flex-direction: column;
-        gap: var(--space-2);
-    }
-    
+ main {
+    margin-top: 70px; /* Высота шапки на мобильных */
+  }
+  
+  .site-header__brand {
+    font-size: 1.3rem;
+  }
+    .site-nav__list.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
     .site-nav__link {
         justify-content: flex-start;
         padding: var(--space-3);
         border: 1px solid var(--color-border);
     }
     
+    /* Основной контент */
     main {
         padding: var(--space-3);
     }
     
+    h1 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
     .main-heading {
         font-size: 1.8rem;
         padding-bottom: var(--space-2);
@@ -771,17 +813,22 @@ p {
         padding-left: var(--space-2);
         border-left-width: 3px;
     }
-    .card {
-        padding: var(--space-3);
-        margin: var(--space-3) 0;
-    }
+    
     .text-paragraph {
         font-size: 0.95rem;
         line-height: 1.5;
         padding: 0;
     }
+    
+    /* Карточки товаров */
     .product-card {
         max-width: none;
+        margin: var(--space-3) 0;
+    }
+    
+    /* Карточки */
+    .card {
+        padding: var(--space-3);
         margin: var(--space-3) 0;
     }
     .grid-container {
@@ -793,40 +840,6 @@ p {
     .grid-item {
         padding: var(--space-3);
     }
-    .video-player__controls {
-        flex-wrap: wrap;
-        gap: var(--space-2);
-    }
-    
-    .video-player__progress {
-        order: -1;
-        width: 100%;
-        margin-bottom: var(--space-2);
-    }
-    
-    .video-player__time {
-        order: -2;
-    }
-    img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Специфичные стили для разных типов изображений */
-.carousel-slide img {
-    width: 100%;
-    height: 300px; /* Фиксированная высота для карусели */
-    object-fit: cover;
-}
-
-.flex-card img {
-    height: 180px;
-    object-fit: cover;
-}
-
-/* Мобильные - оптимизация изображений */
-@media (max-width: 768px) {
     .carousel-slide img {
         height: 200px;
     }
@@ -834,7 +847,7 @@ p {
     .flex-card img {
         height: 150px;
     }
-    #contactDialog {
+        #contactDialog {
         width: 95%;
         margin: 5% auto;
         padding: var(--space-3);
@@ -856,7 +869,7 @@ p {
         font-size: 16px; /* Предотвращает zoom в iOS */
     }
     
-    .form__actions {
+      .form__actions {
         flex-direction: column;
         gap: var(--space-2);
     }
@@ -865,21 +878,35 @@ p {
         width: 100%;
         min-width: auto;
     }
+    .video-player__video {
+        height: auto;
+        max-height: 50vh;
+    }
+    
+    .video-player__controls {
+        padding: var(--space-2);
+        flex-wrap: wrap;
+    }
+    
+    .video-player__progress {
+        order: -1;
+        width: 100%;
+        margin-bottom: var(--space-2);
+    }
+    .video-player__time {
+        order: -2;
+    }
+    
+    .video-player__volume {
+        width: 40px;
+    }
+    
 }
 
-
-/*Адаптивность Планшеты */
+/* Планшеты */
 @media (min-width: 769px) and (max-width: 1024px) {
     .site-header {
         padding: var(--space-4);
-    }
-    
-    main {
-        padding: var(--space-4);
-    }
-    
-    h1 {
-        font-size: 2rem;
     }
     .site-nav__list {
         gap: var(--space-3);
@@ -888,6 +915,13 @@ p {
     .site-nav__link {
         padding: var(--space-2) var(--space-3);
         font-size: 0.9rem;
+    }
+    main {
+        padding: var(--space-4);
+    }
+    
+    h1 {
+        font-size: 2rem;
     }
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
@@ -900,15 +934,24 @@ p {
     .button:hover {
         transform: translateY(-1px);
     }
-    .carousel-slide img {
+     .carousel-slide img {
         height: 250px;
     }
     
     .flex-card img {
         height: 160px;
     }
-    #contactDialog {
+        #contactDialog {
         width: 90%;
         padding: var(--space-4);
     }
+    .video-player__video {
+        max-height: 60vh;
+    }
 }
+
+
+
+/*адаптивность для акции
+адаптиыность не до конца дошла до таблиц адаптивности  ничего не проверено и не сохранено
+на телефоне шапка работает каряво*/
