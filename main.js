@@ -247,7 +247,9 @@ function initVideoPlayer() {
 
     const video = videoPlayer.querySelector('.video-player__video');
     const playBtn = videoPlayer.querySelector('.video-player__play');
+    const playIcon = playBtn.querySelector('.video-player__icon');
     const muteBtn = videoPlayer.querySelector('.video-player__mute');
+    const muteIcon = muteBtn.querySelector('.video-player__icon');
     const fullscreenBtn = videoPlayer.querySelector('.video-player__fullscreen');
     const progressBar = videoPlayer.querySelector('.video-player__progress-bar');
     const seek = videoPlayer.querySelector('.video-player__seek');
@@ -260,6 +262,26 @@ function initVideoPlayer() {
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Обновление иконки воспроизведения
+    function updatePlayIcon() {
+        if (video.paused) {
+            playIcon.textContent = '▶'; // Воспроизвести
+        } else {
+            playIcon.textContent = '⏸'; // Пауза
+        }
+    }
+
+    // Обновление иконки звука
+    function updateMuteIcon() {
+        if (video.muted || video.volume === 0) {
+            muteIcon.textContent = '🔇'; // Выключен звук
+        } else if (video.volume < 0.5) {
+            muteIcon.textContent = '🔈'; // Тихий звук
+        } else {
+            muteIcon.textContent = '🔊'; // Громкий звук
+        }
     }
 
     // Обновление прогресса
@@ -277,13 +299,19 @@ function initVideoPlayer() {
         }
     }
 
-    // События
+    // События видео
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('loadedmetadata', updateDuration);
     video.addEventListener('ended', () => {
         videoPlayer.classList.remove('video-player--playing');
+        updatePlayIcon(); // Обновляем иконку при завершении
     });
 
+    video.addEventListener('play', updatePlayIcon); // При воспроизведении
+    video.addEventListener('pause', updatePlayIcon); // При паузе
+    video.addEventListener('volumechange', updateMuteIcon); // При изменении громкости
+
+    // Обработчики кнопок
     playBtn.addEventListener('click', () => {
         if (video.paused) {
             video.play();
@@ -292,16 +320,22 @@ function initVideoPlayer() {
             video.pause();
             videoPlayer.classList.remove('video-player--playing');
         }
+        // updatePlayIcon() вызывается автоматически через события play/pause
     });
 
     muteBtn.addEventListener('click', () => {
         video.muted = !video.muted;
         videoPlayer.classList.toggle('video-player--muted', video.muted);
+        // updateMuteIcon() вызывается автоматически через volumechange
     });
 
     fullscreenBtn.addEventListener('click', () => {
         if (video.requestFullscreen) {
             video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen();
+        } else if (video.mozRequestFullScreen) {
+            video.mozRequestFullScreen();
         }
     });
 
@@ -312,10 +346,14 @@ function initVideoPlayer() {
 
     volume.addEventListener('input', () => {
         video.volume = volume.value;
+        video.muted = (volume.value === 0); // Автоматическое отключение звука при 0
+        // updateMuteIcon() вызывается автоматически через volumechange
     });
 
     // Инициализация
     updateDuration();
+    updatePlayIcon();
+    updateMuteIcon();
 }
 
 // Инициализация при загрузке
