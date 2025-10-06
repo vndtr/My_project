@@ -239,20 +239,28 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', toggleTheme);
     });
 });
-// ===== КАСТОМНЫЙ ВИДЕО ПЛЕЕР =====
+
+// ===== КАСТОМНЫЙ ВИДЕО ПЛЕЕР С MOBILE SUPPORT =====
 function initVideoPlayer() {
     const videoPlayer = document.querySelector('.video-player');
     if (!videoPlayer) return;
 
     const video = videoPlayer.querySelector('.video-player__video');
     const playBtn = videoPlayer.querySelector('.video-player__play');
+    const playIcon = playBtn.querySelector('.video-player__icon');
     const muteBtn = videoPlayer.querySelector('.video-player__mute');
+    const muteIcon = muteBtn.querySelector('.video-player__icon');
     const fullscreenBtn = videoPlayer.querySelector('.video-player__fullscreen');
+    const fullscreenIcon = fullscreenBtn.querySelector('.video-player__icon');
     const progressBar = videoPlayer.querySelector('.video-player__progress-bar');
     const seek = videoPlayer.querySelector('.video-player__seek');
     const volume = videoPlayer.querySelector('.video-player__volume');
     const currentTime = videoPlayer.querySelector('.video-player__current');
     const duration = videoPlayer.querySelector('.video-player__duration');
+    const controls = videoPlayer.querySelector('.video-player__controls');
+
+    let hideControlsTimeout;
+    let isSeeking = false;
 
     // Форматирование времени
     function formatTime(seconds) {
@@ -261,12 +269,49 @@ function initVideoPlayer() {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
+    // Обновление всех иконок
+    function updateIcons() {
+        // Иконка воспроизведения/паузы
+        playIcon.textContent = video.paused ? '▶' : '⏸';
+        
+        // Иконка звука
+        if (video.muted || video.volume === 0) {
+            muteIcon.textContent = '🔇';
+        } else if (video.volume < 0.5) {
+            muteIcon.textContent = '🔈';
+        } else {
+            muteIcon.textContent = '🔊';
+        }
+        
+        // Иконка полноэкранного режима
+        const isFullscreen = document.fullscreenElement || 
+                            document.webkitFullscreenElement ||
+                            document.mozFullScreenElement;
+        fullscreenIcon.textContent = isFullscreen ? '⛶' : '⛶';
+    }
+
+    // Показать/скрыть контролы на мобильных
+    function toggleControls() {
+        controls.classList.add('video-player__controls--visible');
+        clearTimeout(hideControlsTimeout);
+        
+        if (!video.paused) {
+            hideControlsTimeout = setTimeout(() => {
+                if (!isSeeking) {
+                    controls.classList.remove('video-player__controls--visible');
+                }
+            }, 3000);
+        }
+    }
+
     // Обновление прогресса
     function updateProgress() {
-        const percent = (video.currentTime / video.duration) * 100;
-        progressBar.style.width = `${percent}%`;
-        seek.value = percent;
-        currentTime.textContent = formatTime(video.currentTime);
+        if (!isSeeking) {
+            const percent = (video.currentTime / video.duration) * 100;
+            progressBar.style.width = `${percent}%`;
+            seek.value = percent;
+            currentTime.textContent = formatTime(video.currentTime);
+        }
     }
 
     // Обновление длительности
@@ -276,13 +321,26 @@ function initVideoPlayer() {
         }
     }
 
-    // События
+    // События видео
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('loadedmetadata', updateDuration);
     video.addEventListener('ended', () => {
         videoPlayer.classList.remove('video-player--playing');
+        updateIcons();
+        controls.classList.add('video-player__controls--visible');
     });
 
+    // События для обновления иконок
+    video.addEventListener('play', updateIcons);
+    video.addEventListener('pause', updateIcons);
+    video.addEventListener('volumechange', updateIcons);
+
+    // Событие изменения полноэкранного режима
+    document.addEventListener('fullscreenchange', updateIcons);
+    document.addEventListener('webkitfullscreenchange', updateIcons);
+    document.addEventListener('mozfullscreenchange', updateIcons);
+
+    // Обработчики кнопок
     playBtn.addEventListener('click', () => {
         if (video.paused) {
             video.play();
@@ -291,30 +349,75 @@ function initVideoPlayer() {
             video.pause();
             videoPlayer.classList.remove('video-player--playing');
         }
+        toggleControls();
     });
 
     muteBtn.addEventListener('click', () => {
         video.muted = !video.muted;
         videoPlayer.classList.toggle('video-player--muted', video.muted);
+        toggleControls();
     });
 
     fullscreenBtn.addEventListener('click', () => {
-        if (video.requestFullscreen) {
-            video.requestFullscreen();
+        if (!document.fullscreenElement) {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
         }
+        toggleControls();
     });
 
+    // Touch события для прогресс-бара
     seek.addEventListener('input', () => {
+        isSeeking = true;
         const seekTime = (seek.value / 100) * video.duration;
         video.currentTime = seekTime;
+        currentTime.textContent = formatTime(video.currentTime);
+    });
+
+    seek.addEventListener('change', () => {
+        isSeeking = false;
     });
 
     volume.addEventListener('input', () => {
         video.volume = volume.value;
+        video.muted = (volume.value === 0);
+        toggleControls();
+    });
+
+    // Touch события для всего видеоплеера
+    videoPlayer.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        toggleControls();
+    });
+
+    video.addEventListener('click', toggleControls);
+
+    // Авто-скрытие контролов
+    video.addEventListener('play', () => {
+        setTimeout(() => {
+            if (!video.paused && !isSeeking) {
+                controls.classList.remove('video-player__controls--visible');
+            }
+        }, 3000);
     });
 
     // Инициализация
     updateDuration();
+    updateIcons();
+    toggleControls(); // Показываем контролы при загрузке
 }
 
 // Инициализация при загрузке
