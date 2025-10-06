@@ -856,13 +856,19 @@ p {
         width: 100%;
         min-width: auto;
     }
+    .video-player {
+        border-radius: 0;
+        margin: 0;
+    }
+    
     .video-player__video {
-        height: auto;
+        border-radius: 0;
         max-height: 50vh;
     }
     
     .video-player__controls {
         padding: var(--space-2);
+        gap: var(--space-2);
         flex-wrap: wrap;
     }
     
@@ -870,13 +876,33 @@ p {
         order: -1;
         width: 100%;
         margin-bottom: var(--space-2);
+        height: 12px;
     }
+    
+    .video-player__seek {
+        height: 24px;
+        top: -6px;
+    }
+    
     .video-player__time {
         order: -2;
+        font-size: 0.8rem;
+        min-width: 60px;
     }
     
     .video-player__volume {
-        width: 40px;
+        width: 60px;
+    }
+    
+    /* Скрытие контролов по умолчанию на мобильных */
+    .video-player__controls:not(.video-player__controls--visible) {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    .video-player__controls.video-player__controls--visible {
+        opacity: 1;
+        pointer-events: all;
     }
     
 }
