@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', toggleTheme);
     });
 });
+
 // ===== КАСТОМНЫЙ ВИДЕО ПЛЕЕР =====
 function initVideoPlayer() {
     const videoPlayer = document.querySelector('.video-player');
