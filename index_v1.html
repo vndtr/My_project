@@ -1,0 +1,211 @@
+<html lang="ru">
+<head>
+<link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Адаптирует страницу для мобильных устройств-->
+<title>Главная - CAS</title>
+<meta name="description" content="Творческое пространство 'GSV'">
+<link rel="icon" href="assets/iconMoon.ico" type="image/x-icon"> <!--иконка сайта-->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Тату салон 'GSV'">
+<meta property="og:description" content="Творческое пространство в Москве">
+<meta property="og:image" content="assets/pictureLogo.jpeg">
+</head>
+<body>
+<!-- Шапка сайта -->
+<header class="site-header">
+   <!-- Логотип -->
+  <a class="site-header__brand" href="https://vndtr.github.io/My_project/index.html">GSV</a>
+    <ul class="site-nav__list">
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="index.html">Главная</a>
+      </li>
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="about.html">О нас</a>
+      </li>
+      <li class="site-nav__item">
+        <a class="site-nav__link" href="contacts.html">Обратная связь</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- Кнопка переключения темы -->
+ <button class="theme-toggle" type="button" aria-pressed="false">
+    <span class="theme-toggle__icon">🌙</span>
+    <span class="theme-toggle__text">Тема</span>
+</button>
+</header>
+<!-- Уникальное основное содержимое страницы -->
+<main>
+<h1 class="main-heading">Творческое пространство "GSV"</h1>
+
+<!-- Секция 1 услуги -->
+<section class="card">
+  <div class="card__content">
+    <h2 class="sub-heading">Наши услуги</h2>
+    
+    <div class="grid-container">
+      <div class="grid-item">
+        <h3 class="subsub-heading">Татуировки</h3>
+        <p class="text-paragraph">Индивидуальные эскизы и профессиональное нанесение</p>
+      </div>
+      <div class="grid-item">
+        <div class="positioned-badge">
+            <span>Акция!</span>
+        </div>
+        <h3 class="subsub-heading">Пирсинг</h3>
+        <p class="text-paragraph">Безопасный пирсинг от опытных мастеров</p>
+      </div>
+      <div class="grid-item">
+        <h3 class="subsub-heading">Консультация</h3>
+        <p class="text-paragraph">Профессиональная консультация по всем вопросам</p>
+      </div>
+      <div class="grid-item">
+        <h3 class="subsub-heading">Коррекция</h3>
+        <p class="text-paragraph">Исправление и доработка существующих работ</p>
+      </div>
+      <div class="grid-item">
+        <h3 class="subsub-heading">Удаление</h3>
+        <p class="text-paragraph">Современные методы удаления татуировок</p>
+      </div>
+      <div class="grid-item">
+        <h3 class="subsub-heading">Обучение</h3>
+        <p class="text-paragraph">Курсы для начинающих тату-мастеров</p>
+      </div>
+    </div>
+    <a href="about.html" class="button">Узнать подробнее</a>
+  </div>
+</section>
+
+<!-- Секция 2 видеоплеер-->
+<section class="card product-card">
+    <div class="card__content">
+        <h2 class="sub-heading">Смотрим на Depeche Mode 93 года</h2>
+        <div class="video-player">
+            <video class="video-player__video" width="960" height="540" poster="assets/video/poster.jpeg">
+                <source src="assets/video/dm.mp4" type="video/mp4">
+            </video>
+            
+            <div class="video-player__controls"><!--Панель управления-->
+                <button class="video-player__button video-player__play" aria-label="Воспроизвести">
+                    <span class="video-player__icon">▶</span>
+                </button>
+                
+                <div class="video-player__progress"><!--Прогресс-бар-->
+                    <div class="video-player__progress-bar"></div>
+                    <input type="range" class="video-player__seek" value="0" min="0" max="100" step="0.1">
+                </div>
+                
+                <div class="video-player__time"><!--Тайминг-->
+                    <span class="video-player__current">0:00</span>
+                    <span class="video-player__duration">/ 0:00</span>
+                </div>
+                <!--Громкость и полноэкранный режим-->
+                <button class="video-player__button video-player__mute" aria-label="Звук">
+                    <span class="video-player__icon">🔊</span>
+                </button>
+                
+                <input type="range" class="video-player__volume" min="0" max="1" step="0.1" value="1">
+                
+                <button class="video-player__button video-player__fullscreen" aria-label="Полный экран">
+                    <span class="video-player__icon">⛶</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция 3 портфолио-->
+<section id="portfolio" class="card product-card">
+    <h2 class="sub-heading">Портфолио</h2>
+    <div class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="assets/Violator Depeche Mode.jpeg" alt="Тату работа 1" loading="lazy">
+                <div class="slide-caption">Violator</div>
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/Depeche Mode (1).jpeg" alt="Тату работа 2" loading="lazy">
+                <div class="slide-caption">Delta Machine</div>
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/Без названия (2).jpeg" alt="Пирсинг 1" loading="lazy">
+                <div class="slide-caption">Playing The Angel</div>
+            </div>
+        </div>
+
+        <button class="carousel-prev">❮</button>
+        <button class="carousel-next">❯</button>
+
+        <div class="carousel-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </div>
+</section>
+
+<!-- Секция 4 запись-->
+<section class="card product-card">
+  <div class="card__content">
+    <h2 class="sub-heading">Запись на Услугу</h2>
+    <p class="text-paragraph">Оставьте заявку и наш менеджер свяжеться с вами</p>
+    <button class="button button--accent" type="button" onclick="openModal()">Записаться</button>
+  </div>
+</main>
+
+<!-- Подвал сайта -->
+<footer class="site-footer">
+  <p class="text-paragraph">© 2025 Творческое пространство "GSV". Все права защищены.</p>
+  <p class="text-paragraph">Телефон: +7 (444) 444-44-44</p>
+</footer>
+
+<script src="main.js" defer></script>
+
+</body>
+<dialog id="contactDialog" class="modal" aria-labelledby="dialogTitle">
+  <h2 id="dialogTitle" class="modal__title">Запись</h2>
+  
+  <form id="contactForm" class="modal__form" method="dialog" novalidate>
+    <div class="form__group">
+      <label class="form__label" for="name">Имя</label>
+      <input class="form__input" id="name" name="name" type="text" required>
+    </div>
+
+    <div class="form__group">
+      <label class="form__label" for="email">E-mail</label>
+      <input class="form__input" id="email" name="email" type="email" required>
+    </div>
+
+    <div class="form__group">
+      <label class="form__label" for="phone">Телефон</label>
+      <input class="form__input" id="phone" name="phone" type="tel" required>
+      <small class="form__help">Формат: +7 (900) 000-00-00</small>
+    </div>
+
+    <div class="form__group">
+      <label class="form__label" for="date">Дата рождения</label>
+      <input class="form__input" id="date" name="date" type="date">
+    </div>
+
+    <div class="form__group">
+      <label class="form__label" for="topic">Услуга</label>
+      <select class="form__select" id="topic" name="topic" required>
+        <option value="">Выберите услугу</option>
+        <option>Тату</option>
+        <option>Пирсинг</option>
+        <option>Консультация</option>
+      </select>
+    </div>
+
+    <div class="form__group">
+      <label class="form__label" for="message">Сообщение</label>
+      <textarea class="form__textarea" id="message" name="message" rows="4" required></textarea>
+    </div>
+
+    <div class="form__actions">
+      <button class="button" type="button" id="closeDialog">Закрыть</button>
+      <button class="button button--accent" type="submit">Отправить</button>
+    </div>
+  </form>
+</dialog>
+</html>
