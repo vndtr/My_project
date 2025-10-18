@@ -1,110 +1,96 @@
-// Инициализация при загрузке документа
-document.addEventListener('DOMContentLoaded', function() {
-    initTheme();
-    initFormValidation();
-    initPhoneMask();
-    initCarousel();
-});
 
-//УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ 
+// ===== УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ =====
 const THEME_KEY = 'theme-preference';
 
+// Основная функция инициализации
 function initTheme() {
-    const themeToggle = document.querySelector('.theme-toggle');
     
-    // Установка светлой темы по умолчанию
+    const themeToggle = document.querySelector('.theme-toggle');
+    // Установка начальной темы
     const savedTheme = localStorage.getItem(THEME_KEY);
+    
     let isDark = false; // По умолчанию светлая тема
     
     if (savedTheme === 'dark') {
         isDark = true;
-    } else if (savedTheme === 'light') {
-        isDark = false;
     }
-    // Если нет сохраненной темы - оставляем светлую (isDark = false)
+    // Если 'light' или null - оставляем светлую тему
     
     applyTheme(isDark);
     
-    // Обработчик переключателя
-    themeToggle?.addEventListener('click', () => {
+    // Обработчик клика по переключателю
+    themeToggle.addEventListener('click', function() {
+       
         const isCurrentlyDark = document.body.classList.contains('theme-dark');
         applyTheme(!isCurrentlyDark);
     });
     
-    // Синхронизация между вкладками
-    window.addEventListener('storage', (event) => {
-        if (event.key === THEME_KEY) {
-            const isDark = event.newValue === 'dark';
-            applyTheme(isDark);
-        }
-    });
+    
 }
 
+// Функция применения темы
 function applyTheme(isDark) {
+    
     const themeToggle = document.querySelector('.theme-toggle');
     const icon = themeToggle?.querySelector('i');
     
     if (isDark) {
+        // Включаем темную тему
         document.body.classList.add('theme-dark');
         localStorage.setItem(THEME_KEY, 'dark');
+        
         if (icon) {
-            icon.className = 'bi bi-sun'; // Солнышко для темной темы
+            icon.className = 'bi bi-sun'; // Солнце для темной темы
         }
         if (themeToggle) {
-            themeToggle.setAttribute('aria-pressed', 'true');
+            themeToggle.setAttribute('data-theme', 'dark');
             themeToggle.title = 'Переключить на светлую тему';
         }
+        
     } else {
+        // Включаем светлую тему
         document.body.classList.remove('theme-dark');
         localStorage.setItem(THEME_KEY, 'light');
+        
         if (icon) {
             icon.className = 'bi bi-moon'; // Луна для светлой темы
         }
         if (themeToggle) {
-            themeToggle.setAttribute('aria-pressed', 'false');
+            themeToggle.setAttribute('data-theme', 'light');
             themeToggle.title = 'Переключить на темную тему';
         }
+        
     }
     
-    // Обновляем видеоплеер если он есть
+    // Обновляем другие компоненты
     updateVideoPlayerTheme(isDark);
 }
 
 function updateVideoPlayerTheme(isDark) {
     const videoPlayer = document.querySelector('.enhanced-video-player');
-    if (!videoPlayer) return;
-    
-    if (isDark) {
-        videoPlayer.classList.add('theme-dark');
-    } else {
-        videoPlayer.classList.remove('theme-dark');
+    if (videoPlayer) {
+        if (isDark) {
+            videoPlayer.classList.add('theme-dark');
+        } else {
+            videoPlayer.classList.remove('theme-dark');
+        }
     }
 }
 
-//  ОТЛАДКА ТЕМЫ
-function debugTheme() {
-    console.log('=== THEME DEBUG INFO ===');
-    console.log('Body classes:', document.body.className);
-    console.log('LocalStorage theme:', localStorage.getItem(THEME_KEY));
-    console.log('Theme toggle exists:', !!document.querySelector('.theme-toggle'));
-    console.log('Current theme is dark:', document.body.classList.contains('theme-dark'));
-    console.log('========================');
-}
-
-// ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ
+//ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - initializing theme...');
+    
     initTheme();
     initFormValidation();
     initPhoneMask();
     initCarousel();
     initEnhancedVideoPlayer();
-    
-    // Проверка состояния темы после загрузки
-    setTimeout(() => {
-        const isDark = document.body.classList.contains('theme-dark');
-        console.log('Current theme:', isDark ? 'dark' : 'light');
-    }, 100);
+});
+
+// Дублирующая инициализация на случай проблем
+window.addEventListener('load', function() {
+    // Проверяем, что тема применилась
+    const currentTheme = localStorage.getItem(THEME_KEY) || 'light';
 });
 
 // ВАЛИДАЦИЯ ФОРМ 

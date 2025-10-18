@@ -1,14 +1,14 @@
 
 /*Bootstrap */
 
-/* ===== БАЗОВЫЕ СТИЛИ ===== */
+/* БАЗОВЫЕ СТИЛИ*/
 body {
     background-color: #ffffff;
     color: #2c2c2c;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ===== ТЕМНАЯ ТЕМА ===== */
+/* ТЕМНАЯ ТЕМА */
 body.theme-dark {
     background-color: #1a1a1a !important;
     color: #e0e0e0 !important;
@@ -153,9 +153,45 @@ body.theme-dark .carousel-control-next-icon {
     filter: invert(1);
 }
 
+/* Видеоплеер в темной теме */
+body.theme-dark .enhanced-video-player {
+    background-color: #2a2a2a;
+}
+
+body.theme-dark .video-info {
+    color: #e0e0e0;
+}
+
+body.theme-dark .video-info .text-muted {
+    color: #a0a0a0 !important;
+}
+
+/* Прогресс-бары в темной теме */
+body.theme-dark .progress {
+    background-color: #404040;
+}
+
+/* Уведомления в темной теме */
+body.theme-dark .alert-info {
+    background-color: rgba(13, 110, 253, 0.2);
+    border-color: rgba(13, 110, 253, 0.3);
+    color: #9ec5fe;
+}
+
+body.theme-dark .alert-success {
+    background-color: rgba(25, 135, 84, 0.2);
+    border-color: rgba(25, 135, 84, 0.3);
+    color: #a3cfbb;
+}
+
+body.theme-dark .alert-danger {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #f1aeb5;
+}
 
 
-/* ===== СТИЛИ ПЕРЕКЛЮЧАТЕЛЯ ТЕМЫ ===== */
+/*СТИЛИ ПЕРЕКЛЮЧАТЕЛЯ ТЕМЫ */
 .theme-toggle {
     transition: all 0.3s ease;
     border: 1px solid #dee2e6;
@@ -179,7 +215,7 @@ body.theme-dark .theme-toggle {
 
 
 
-/* ===== УЛУЧШЕННЫЙ ВИДЕО ПЛЕЕР ===== */
+/* ВИДЕО ПЛЕЕР  */
 .enhanced-video-player {
     border-radius: 0.5rem;
     overflow: hidden;
@@ -364,27 +400,6 @@ body.theme-dark .video-info {
     }
 }
 
-/* Кастомный скроллбар для WebKit */
-.progress-slider::-webkit-slider-track,
-.volume-slider::-webkit-slider-track {
-    background: transparent;
-}
-
-.progress-slider::-moz-range-track,
-.volume-slider::-moz-range-track {
-    background: transparent;
-    border: none;
-}
-
-/* Эффекты при наведении */
-.video-control-btn {
-    transition: all 0.2s ease;
-}
-
-.video-control-btn:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.1) !important;
-}
 
 /* Мини-плеер для мобильных */
 @media (max-width: 576px) {
@@ -426,25 +441,5 @@ body.theme-dark .video-info {
 .btn-primary:hover {
     background-color: #5a5a5a;
     border-color: #5a5a5a;
-}
-
-/* Стили для модальных окон в темной теме */
-body.theme-dark .modal-content {
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-}
-
-body.theme-dark .modal-header {
-    border-bottom-color: #404040;
-}
-
-body.theme-dark .modal-footer {
-    border-top-color: #404040;
-}
-
-/* Карусель в темной теме */
-body.theme-dark .carousel-control-prev-icon,
-body.theme-dark .carousel-control-next-icon {
-    filter: invert(1);
 }
 
