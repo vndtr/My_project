@@ -1,5 +1,3 @@
-
-
 // Инициализация при загрузке документа
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
@@ -8,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
 });
 
-// ===== УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ =====
+//УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ 
 const THEME_KEY = 'theme-preference';
 
 function initTheme() {
@@ -83,7 +81,7 @@ function updateVideoPlayerTheme(isDark) {
     }
 }
 
-// ===== ОТЛАДКА ТЕМЫ =====
+//  ОТЛАДКА ТЕМЫ
 function debugTheme() {
     console.log('=== THEME DEBUG INFO ===');
     console.log('Body classes:', document.body.className);
@@ -93,7 +91,7 @@ function debugTheme() {
     console.log('========================');
 }
 
-// ===== ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ =====
+// ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded - initializing theme...');
     initTheme();
@@ -109,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 });
 
-// ===== ВАЛИДАЦИЯ ФОРМ =====
+// ВАЛИДАЦИЯ ФОРМ 
 function initFormValidation() {
     // Форма записи
     const bookingForm = document.getElementById('bookingForm');
@@ -190,7 +188,7 @@ function initRealTimeValidation() {
     });
 }
 
-// ===== МАСКА ТЕЛЕФОНА =====
+//  МАСКА ТЕЛЕФОНА
 function initPhoneMask() {
     const phoneInputs = document.querySelectorAll('input[type="tel"]');
     
@@ -241,7 +239,7 @@ function validatePhone(e) {
     }
 }
 
-// ===== КАРУСЕЛЬ =====
+// КАРУСЕЛЬ
 function initCarousel() {
     const carousels = document.querySelectorAll('.carousel');
     carousels.forEach(carousel => {
@@ -253,7 +251,7 @@ function initCarousel() {
     });
 }
 
-// ===== УТИЛИТЫ =====
+// УТИЛИТЫ 
 function showAlert(message, type) {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
@@ -272,9 +270,8 @@ function showAlert(message, type) {
     }, 5000);
 }
 
-// ===== SMOOTH SCROLL =====
+// Плавная прокрутка
 document.addEventListener('DOMContentLoaded', function() {
-    // Плавная прокрутка для якорей
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -289,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// ===== LAZY LOADING =====
+// LAZY LOADING
 if ('IntersectionObserver' in window) {
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -307,7 +304,7 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-// ===== УЛУЧШЕННЫЙ ВИДЕО ПЛЕЕР =====
+// ВИДЕО ПЛЕЕР
 function initEnhancedVideoPlayer() {
     const videoPlayer = document.querySelector('.enhanced-video-player');
     if (!videoPlayer) {
