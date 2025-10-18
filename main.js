@@ -22,9 +22,9 @@ function initTheme() {
     
     // Установка начальной темы
     let isDark = false;
-    if (savedTheme === 'dark') {
+    if (savedTheme === 'light') {
         isDark = true;
-    } else if (savedTheme === 'light') {
+    } else if (savedTheme === 'dark') {
         isDark = false;
     } else {
         isDark = systemPrefersDark;
