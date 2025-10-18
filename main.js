@@ -1,8 +1,4 @@
-const dlg = document.getElementById('contactDialog');
-const openBtn = document.getElementById('openDialog');
-const closeBtn = document.getElementById('closeDialog');
-const form = document.getElementById('contactForm');
-let lastActive = null;
+
 
 // Инициализация при загрузке документа
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,18 +13,17 @@ const THEME_KEY = 'theme-preference';
 
 function initTheme() {
     const themeToggle = document.querySelector('.theme-toggle');
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Установка начальной темы
-    let isDark = false;
-    if (savedTheme === 'light') {
+    // Установка светлой темы по умолчанию
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    let isDark = false; // По умолчанию светлая тема
+    
+    if (savedTheme === 'dark') {
         isDark = true;
-    } else if (savedTheme === 'dark') {
+    } else if (savedTheme === 'light') {
         isDark = false;
-    } else {
-        isDark = systemPrefersDark;
     }
+    // Если нет сохраненной темы - оставляем светлую (isDark = false)
     
     applyTheme(isDark);
     
@@ -36,6 +31,14 @@ function initTheme() {
     themeToggle?.addEventListener('click', () => {
         const isCurrentlyDark = document.body.classList.contains('theme-dark');
         applyTheme(!isCurrentlyDark);
+    });
+    
+    // Синхронизация между вкладками
+    window.addEventListener('storage', (event) => {
+        if (event.key === THEME_KEY) {
+            const isDark = event.newValue === 'dark';
+            applyTheme(isDark);
+        }
     });
 }
 
@@ -47,16 +50,64 @@ function applyTheme(isDark) {
         document.body.classList.add('theme-dark');
         localStorage.setItem(THEME_KEY, 'dark');
         if (icon) {
-            icon.className = 'bi bi-sun';
+            icon.className = 'bi bi-sun'; // Солнышко для темной темы
+        }
+        if (themeToggle) {
+            themeToggle.setAttribute('aria-pressed', 'true');
+            themeToggle.title = 'Переключить на светлую тему';
         }
     } else {
         document.body.classList.remove('theme-dark');
         localStorage.setItem(THEME_KEY, 'light');
         if (icon) {
-            icon.className = 'bi bi-moon';
+            icon.className = 'bi bi-moon'; // Луна для светлой темы
+        }
+        if (themeToggle) {
+            themeToggle.setAttribute('aria-pressed', 'false');
+            themeToggle.title = 'Переключить на темную тему';
         }
     }
+    
+    // Обновляем видеоплеер если он есть
+    updateVideoPlayerTheme(isDark);
 }
+
+function updateVideoPlayerTheme(isDark) {
+    const videoPlayer = document.querySelector('.enhanced-video-player');
+    if (!videoPlayer) return;
+    
+    if (isDark) {
+        videoPlayer.classList.add('theme-dark');
+    } else {
+        videoPlayer.classList.remove('theme-dark');
+    }
+}
+
+// ===== ОТЛАДКА ТЕМЫ =====
+function debugTheme() {
+    console.log('=== THEME DEBUG INFO ===');
+    console.log('Body classes:', document.body.className);
+    console.log('LocalStorage theme:', localStorage.getItem(THEME_KEY));
+    console.log('Theme toggle exists:', !!document.querySelector('.theme-toggle'));
+    console.log('Current theme is dark:', document.body.classList.contains('theme-dark'));
+    console.log('========================');
+}
+
+// ===== ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ =====
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - initializing theme...');
+    initTheme();
+    initFormValidation();
+    initPhoneMask();
+    initCarousel();
+    initEnhancedVideoPlayer();
+    
+    // Проверка состояния темы после загрузки
+    setTimeout(() => {
+        const isDark = document.body.classList.contains('theme-dark');
+        console.log('Current theme:', isDark ? 'dark' : 'light');
+    }, 100);
+});
 
 // ===== ВАЛИДАЦИЯ ФОРМ =====
 function initFormValidation() {
@@ -255,18 +306,14 @@ if ('IntersectionObserver' in window) {
         imageObserver.observe(img);
     });
 }
-openBtn?.addEventListener('click', () => {
-  lastActive = document.activeElement;
-  dlg.showModal();
-  dlg.querySelector('input, select, textarea, button')?.focus();
-});
-
-closeBtn?.addEventListener('click', () => dlg.close('cancel'));
 
 // ===== УЛУЧШЕННЫЙ ВИДЕО ПЛЕЕР =====
 function initEnhancedVideoPlayer() {
     const videoPlayer = document.querySelector('.enhanced-video-player');
-    if (!videoPlayer) return;
+    if (!videoPlayer) {
+        console.log('Video player not found');
+        return;
+    }
 
     const video = videoPlayer.querySelector('.video-element');
     const overlay = videoPlayer.querySelector('.video-overlay');
@@ -280,25 +327,31 @@ function initEnhancedVideoPlayer() {
     const volumeSlider = videoPlayer.querySelector('.volume-slider');
     const volumeBar = videoPlayer.querySelector('.volume-slider-container .progress-bar');
     const fullscreenBtn = videoPlayer.querySelector('.fullscreen-btn');
-    const speedOptions = videoPlayer.querySelectorAll('.speed-option');
-    const qualityOptions = videoPlayer.querySelectorAll('.quality-option');
     const loadingIndicator = videoPlayer.querySelector('.video-loading');
-    const notifications = videoPlayer.querySelector('.video-notifications');
+
+    console.log('Video elements found:', {
+        video: !!video,
+        playPauseBtn: !!playPauseBtn,
+        bigPlayBtn: !!bigPlayBtn,
+        progressBar: !!progressBar
+    });
+
+    // Проверка существования элементов
+    if (!video || !playPauseBtn || !bigPlayBtn) {
+        console.error('Essential video elements missing');
+        return;
+    }
 
     let isSeeking = false;
     let isControlsVisible = true;
     let hideControlsTimeout;
-    let wasPausedBeforeSeeking = false;
 
     // Форматирование времени
     function formatTime(seconds) {
-        const hrs = Math.floor(seconds / 3600);
-        const mins = Math.floor((seconds % 3600) / 60);
-        const secs = Math.floor(seconds % 60);
+        if (isNaN(seconds)) return '0:00';
         
-        if (hrs > 0) {
-            return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
@@ -311,57 +364,60 @@ function initEnhancedVideoPlayer() {
         if (video.paused) {
             videoPlayer.classList.remove('video-playing');
             playIcons.forEach(icon => icon.style.display = 'inline-block');
-            pauseIcons.forEach(icon => icon.style.display = 'none');
+            if (pauseIcons.length) {
+                pauseIcons.forEach(icon => icon.style.display = 'none');
+            }
         } else {
             videoPlayer.classList.add('video-playing');
             playIcons.forEach(icon => icon.style.display = 'none');
-            pauseIcons.forEach(icon => icon.style.display = 'inline-block');
+            if (pauseIcons.length) {
+                pauseIcons.forEach(icon => icon.style.display = 'inline-block');
+            }
         }
 
         // Иконка громкости
-        const volumeIcon = volumeBtn.querySelector('i');
-        if (video.muted || video.volume === 0) {
-            volumeIcon.className = 'bi bi-volume-mute';
-        } else if (video.volume < 0.5) {
-            volumeIcon.className = 'bi bi-volume-down';
-        } else {
-            volumeIcon.className = 'bi bi-volume-up';
+        if (volumeBtn) {
+            const volumeIcon = volumeBtn.querySelector('i');
+            if (video.muted || video.volume === 0) {
+                volumeIcon.className = 'bi bi-volume-mute';
+            } else if (video.volume < 0.5) {
+                volumeIcon.className = 'bi bi-volume-down';
+            } else {
+                volumeIcon.className = 'bi bi-volume-up';
+            }
         }
 
         // Полноэкранный режим
-        const isFullscreen = document.fullscreenElement || 
-                           document.webkitFullscreenElement ||
-                           document.mozFullScreenElement;
-        const fullscreenIcon = fullscreenBtn.querySelector('i');
-        fullscreenIcon.className = isFullscreen ? 'bi bi-fullscreen-exit' : 'bi bi-arrows-fullscreen';
+        if (fullscreenBtn) {
+            const isFullscreen = document.fullscreenElement || 
+                               document.webkitFullscreenElement ||
+                               document.mozFullScreenElement;
+            const fullscreenIcon = fullscreenBtn.querySelector('i');
+            fullscreenIcon.className = isFullscreen ? 'bi bi-fullscreen-exit' : 'bi bi-arrows-fullscreen';
+        }
     }
 
     // Показать/скрыть контролы
     function showControls() {
-        overlay.classList.add('controls-visible');
-        isControlsVisible = true;
-        clearTimeout(hideControlsTimeout);
-        
-        if (!video.paused) {
-            hideControlsTimeout = setTimeout(() => {
-                if (!isSeeking) {
-                    overlay.classList.remove('controls-visible');
-                    isControlsVisible = false;
-                }
-            }, 3000);
-        }
-    }
-
-    function hideControls() {
-        if (!video.paused && !isSeeking) {
-            overlay.classList.remove('controls-visible');
-            isControlsVisible = false;
+        if (overlay) {
+            overlay.classList.add('controls-visible');
+            isControlsVisible = true;
+            clearTimeout(hideControlsTimeout);
+            
+            if (!video.paused) {
+                hideControlsTimeout = setTimeout(() => {
+                    if (!isSeeking) {
+                        overlay.classList.remove('controls-visible');
+                        isControlsVisible = false;
+                    }
+                }, 3000);
+            }
         }
     }
 
     // Обновление прогресса
     function updateProgress() {
-        if (!isSeeking) {
+        if (!isSeeking && progressBar && progressSlider && currentTimeEl) {
             const percent = (video.currentTime / video.duration) * 100;
             progressBar.style.width = `${percent}%`;
             progressSlider.value = percent;
@@ -371,22 +427,100 @@ function initEnhancedVideoPlayer() {
 
     // Обновление длительности
     function updateDuration() {
-        if (!isNaN(video.duration)) {
+        if (durationEl && !isNaN(video.duration)) {
             durationEl.textContent = formatTime(video.duration);
         }
     }
 
-    // Уведомления
-    function showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type} video-notification`;
-        notification.textContent = message;
-        notifications.innerHTML = '';
-        notifications.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
+    // Управление воспроизведением
+    function togglePlay() {
+        try {
+            if (video.paused) {
+                video.play().then(() => {
+                    console.log('Video started playing');
+                }).catch(error => {
+                    console.error('Video play error:', error);
+                    // Показываем стандартные контролы если кастомные не работают
+                    video.setAttribute('controls', 'true');
+                });
+            } else {
+                video.pause();
+            }
+            showControls();
+        } catch (error) {
+            console.error('Toggle play error:', error);
+            video.setAttribute('controls', 'true');
+        }
+    }
+
+    // Назначение обработчиков
+    playPauseBtn.addEventListener('click', togglePlay);
+    bigPlayBtn.addEventListener('click', togglePlay);
+
+    // Клик по видео для воспроизведения/паузы
+    video.addEventListener('click', togglePlay);
+
+    // Прогресс-бар
+    if (progressSlider) {
+        progressSlider.addEventListener('input', () => {
+            isSeeking = true;
+            const seekTime = (progressSlider.value / 100) * video.duration;
+            video.currentTime = seekTime;
+            if (currentTimeEl) {
+                currentTimeEl.textContent = formatTime(video.currentTime);
+            }
+        });
+
+        progressSlider.addEventListener('change', () => {
+            isSeeking = false;
+        });
+    }
+
+    // Громкость
+    if (volumeSlider && volumeBar && volumeBtn) {
+        volumeSlider.addEventListener('input', () => {
+            video.volume = volumeSlider.value;
+            video.muted = (volumeSlider.value === 0);
+            volumeBar.style.width = `${volumeSlider.value * 100}%`;
+            updateInterface();
+        });
+
+        volumeBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            if (!video.muted && video.volume === 0) {
+                video.volume = 0.5;
+                volumeSlider.value = 0.5;
+                volumeBar.style.width = '50%';
+            }
+            updateInterface();
+            showControls();
+        });
+    }
+
+    // Полноэкранный режим
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', () => {
+            const container = video.parentElement;
+            
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.mozRequestFullScreen) {
+                    container.mozRequestFullScreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                }
+            }
+            showControls();
+        });
     }
 
     // События видео
@@ -395,124 +529,35 @@ function initEnhancedVideoPlayer() {
     video.addEventListener('play', updateInterface);
     video.addEventListener('pause', updateInterface);
     video.addEventListener('volumechange', updateInterface);
-    video.addEventListener('ended', () => {
-        videoPlayer.classList.remove('video-playing');
-        showControls();
-        showNotification('Воспроизведение завершено', 'info');
-    });
-
+    
     video.addEventListener('waiting', () => {
-        loadingIndicator.classList.remove('d-none');
+        if (loadingIndicator) loadingIndicator.classList.remove('d-none');
     });
 
     video.addEventListener('canplay', () => {
-        loadingIndicator.classList.add('d-none');
+        if (loadingIndicator) loadingIndicator.classList.add('d-none');
     });
 
-    video.addEventListener('progress', () => {
-        if (video.buffered.length > 0) {
-            const buffered = (video.buffered.end(0) / video.duration) * 100;
-            // Можно добавить индикатор буферизации
-        }
-    });
-
-    // Управление воспроизведением
-    function togglePlay() {
-        if (video.paused) {
-            video.play().catch(error => {
-                showNotification('Ошибка воспроизведения видео', 'danger');
-                console.error('Video play error:', error);
-            });
-        } else {
-            video.pause();
-        }
-        showControls();
-    }
-
-    playPauseBtn?.addEventListener('click', togglePlay);
-    bigPlayBtn?.addEventListener('click', togglePlay);
-
-    // Клик по видео для воспроизведения/паузы
-    video.addEventListener('click', togglePlay);
-
-    // Прогресс-бар
-    progressSlider.addEventListener('input', () => {
-        isSeeking = true;
-        const seekTime = (progressSlider.value / 100) * video.duration;
-        video.currentTime = seekTime;
-        currentTimeEl.textContent = formatTime(video.currentTime);
-    });
-
-    progressSlider.addEventListener('mousedown', () => {
-        wasPausedBeforeSeeking = video.paused;
-        if (!video.paused) {
-            video.pause();
-        }
-        isSeeking = true;
-    });
-
-    progressSlider.addEventListener('mouseup', () => {
-        isSeeking = false;
-        if (!wasPausedBeforeSeeking) {
-            video.play();
-        }
-    });
-
-    // Громкость
-    volumeSlider.addEventListener('input', () => {
-        video.volume = volumeSlider.value;
-        video.muted = (volumeSlider.value === 0);
-        volumeBar.style.width = `${volumeSlider.value * 100}%`;
-        updateInterface();
-    });
-
-    volumeBtn.addEventListener('click', () => {
-        video.muted = !video.muted;
-        if (!video.muted && video.volume === 0) {
-            video.volume = 0.5;
-            volumeSlider.value = 0.5;
-            volumeBar.style.width = '50%';
-        }
-        updateInterface();
+    video.addEventListener('ended', () => {
+        videoPlayer.classList.remove('video-playing');
         showControls();
     });
-
-    // Полноэкранный режим
-    fullscreenBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen();
-            } else if (video.mozRequestFullScreen) {
-                video.mozRequestFullScreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            }
-        }
-        showControls();
-    });
-
-    // События полноэкранного режима
-    document.addEventListener('fullscreenchange', updateInterface);
-    document.addEventListener('webkitfullscreenchange', updateInterface);
-    document.addEventListener('mozfullscreenchange', updateInterface);
-
-
-    // Мышь и тач события
-    videoPlayer.addEventListener('mousemove', showControls);
-    videoPlayer.addEventListener('touchstart', showControls);
 
     // Авто-скрытие контролов
     video.addEventListener('play', () => {
-        setTimeout(hideControls, 3000);
+        setTimeout(() => {
+            if (!isSeeking && overlay) {
+                overlay.classList.remove('controls-visible');
+                isControlsVisible = false;
+            }
+        }, 3000);
     });
+
+    // Мышь и тач события
+    if (overlay) {
+        videoPlayer.addEventListener('mousemove', showControls);
+        videoPlayer.addEventListener('touchstart', showControls);
+    }
 
     // Инициализация
     updateInterface();
@@ -520,14 +565,9 @@ function initEnhancedVideoPlayer() {
 
     // Предзагрузка
     video.preload = 'metadata';
+    
+    console.log('Video player initialized successfully');
 }
 
-// Добавьте вызов в основную функцию инициализации
-document.addEventListener('DOMContentLoaded', function() {
-    initTheme();
-    initFormValidation();
-    initPhoneMask();
-    initCarousel();
-    initEnhancedVideoPlayer(); // Добавьте эту строку
-});
+
 
