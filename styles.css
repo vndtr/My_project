@@ -728,6 +728,339 @@ p {
   box-shadow: var(--shadow);
 }
 
+/* Дополнения к Bootstrap */
+.service-card,
+.master-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #dee2e6;
+}
+
+.service-card:hover,
+.master-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Темная тема */
+body.theme-dark {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.theme-dark .navbar-dark {
+    background-color: #2a2a2a !important;
+}
+
+body.theme-dark .card {
+    background-color: #2a2a2a;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+body.theme-dark .text-muted {
+    color: #cbc8c8 !important;
+}
+
+body.theme-dark .bg-light {
+    background-color: #2a2a2a !important;
+}
+
+body.theme-dark .form-control {
+    background-color: #1a1a1a;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+body.theme-dark .form-control:focus {
+    background-color: #1a1a1a;
+    border-color: #5a5a5a;
+    color: #e0e0e0;
+}
+
+body.theme-dark .form-select {
+    background-color: #1a1a1a;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* ===== УЛУЧШЕННЫЙ ВИДЕО ПЛЕЕР ===== */
+.enhanced-video-player {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.video-container {
+    background: #000;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.video-element {
+    display: block;
+    background: #000;
+}
+
+.video-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.video-container:hover .video-overlay,
+.video-overlay.controls-visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.video-overlay .video-top-controls,
+.video-overlay .video-bottom-controls {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+}
+
+.video-overlay .video-bottom-controls {
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* Кнопка воспроизведения */
+.btn-play-pause {
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-play-pause:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Прогресс-бар */
+.progress-container {
+    cursor: pointer;
+}
+
+.progress-bar-container:hover .progress-bar {
+    background-color: #2f050a !important;
+}
+
+.progress-slider {
+    cursor: pointer;
+}
+
+.progress-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #33090d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.progress-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #230a0d;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Контролы громкости */
+.volume-slider-container {
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.volume-controls:hover .volume-slider-container {
+    opacity: 1;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Состояния видеоплеера */
+.video-playing .play-pause-btn .bi-play-fill,
+.video-playing .btn-play-pause .bi-play-fill {
+    display: none;
+}
+
+.video-playing .play-pause-btn .bi-pause,
+.video-playing .btn-play-pause .bi-pause {
+    display: inline-block;
+}
+
+.play-pause-btn .bi-pause,
+.btn-play-pause .bi-pause {
+    display: none;
+}
+
+/* Полноэкранный режим */
+.video-container:fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container:-moz-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+/* Индикатор загрузки */
+.video-loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Анимации */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.video-notification {
+    animation: fadeInOut 3s ease-in-out;
+}
+
+/* Темная тема для видеоплеера */
+body.theme-dark .enhanced-video-player {
+    border-color: #404040;
+}
+
+body.theme-dark .video-info {
+    color: #e0e0e0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .video-top-controls .video-title h5 {
+        font-size: 0.9rem;
+    }
+    
+    .btn-play-pause {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .video-bottom-controls {
+        padding: 1rem !important;
+    }
+    
+    .volume-slider-container {
+        display: none;
+    }
+    
+    .speed-btn,
+    .quality-btn {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Кастомный скроллбар для WebKit */
+.progress-slider::-webkit-slider-track,
+.volume-slider::-webkit-slider-track {
+    background: transparent;
+}
+
+.progress-slider::-moz-range-track,
+.volume-slider::-moz-range-track {
+    background: transparent;
+    border: none;
+}
+
+/* Эффекты при наведении */
+.video-control-btn {
+    transition: all 0.2s ease;
+}
+
+.video-control-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Мини-плеер для мобильных */
+@media (max-width: 576px) {
+    .enhanced-video-player {
+        margin: 0 -1rem;
+        border-radius: 0;
+    }
+    
+    .video-container {
+        border-radius: 0;
+    }
+}
+
+/* Стили для иконок контактов */
+.contact-info i {
+    width: 24px;
+}
+
+/* Адаптивность изображений */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Дополнительные утилиты */
+.border-primary {
+    border-color: #3a3a3a !important;
+}
+
+.text-primary {
+    color: #3a3a3a !important;
+}
+
+.btn-primary {
+    background-color: #3a3a3a;
+    border-color: #3a3a3a;
+}
+
+.btn-primary:hover {
+    background-color: #5a5a5a;
+    border-color: #5a5a5a;
+}
+
+/* Стили для модальных окон в темной теме */
+body.theme-dark .modal-content {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.theme-dark .modal-header {
+    border-bottom-color: #404040;
+}
+
+body.theme-dark .modal-footer {
+    border-top-color: #404040;
+}
+
+/* Карусель в темной теме */
+body.theme-dark .carousel-control-prev-icon,
+body.theme-dark .carousel-control-next-icon {
+    filter: invert(1);
+}
 
 /* Мобильные устройства */
 @media (max-width: 768px) {
