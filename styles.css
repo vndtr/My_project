@@ -442,3 +442,29 @@ body.theme-dark .video-info {
     border-color: #5a5a5a;
 }
 
+/* Базовые адаптивные изображения */
+.responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius);
+}
+
+/* Для картинок в карточках */
+.card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-img-top {
+        height: 200px;
+    }
+}
