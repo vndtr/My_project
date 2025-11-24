@@ -93,10 +93,6 @@ main.container {
     padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1.5rem, 2vw, 2rem) !important;
 }
 
-.carousel-inner img {
-    height: clamp(300px, 50vh, 500px) !important;
-}
-
 .btn-play-pause {
     width: clamp(50px, 10vw, 70px) !important;
     height: clamp(50px, 10vw, 70px) !important;
@@ -130,6 +126,63 @@ main.container {
 
 .breadcrumb-item {
     font-size: clamp(0.875rem, 1.2vw, 1rem) !important;
+}
+
+/* КАРУСЕЛЬ С УВЕЛИЧЕННОЙ МИНИМАЛЬНОЙ ВЫСОТОЙ */
+.carousel-inner {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Увеличиваем высоту на больших экранах */
+@media (min-width: 1200px) {
+    .carousel-item img {
+        height: 800px;
+        min-height: 900px;
+        
+    }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 400px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-item img {
+        height: 300px;
+    }
+}
+
+/* Стандартные стили карусели */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.carousel-caption {
+    bottom: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
 }
 
 /* СОВРЕМЕННАЯ CSS GRID СЕТКА */
@@ -233,10 +286,6 @@ img[loading="lazy"].loaded {
 }
 
 @media (max-width: 768px) {
-    .carousel-inner img {
-        height: 300px !important;
-    }
-    
     .master-card .card-img-top {
         height: 250px !important;
     }
@@ -614,11 +663,6 @@ body.theme-dark .video-info {
     .volume-slider-container {
         display: none;
     }
-    
-    .speed-btn {
-        font-size: 0.8rem;
-        padding: 0.25rem 0.5rem;
-    }
 }
 
 @media (max-width: 576px) {
@@ -633,10 +677,6 @@ body.theme-dark .video-info {
     
     .video-time {
         font-size: 0.875rem;
-    }
-    
-    .speed-btn .dropdown-toggle::after {
-        display: none;
     }
 }
 
