@@ -1,36 +1,29 @@
-
-// ===== УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ =====
+//УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ 
 const THEME_KEY = 'theme-preference';
 
 // Основная функция инициализации
 function initTheme() {
-    
     const themeToggle = document.querySelector('.theme-toggle');
+    
     // Установка начальной темы
     const savedTheme = localStorage.getItem(THEME_KEY);
-    
     let isDark = false; // По умолчанию светлая тема
     
     if (savedTheme === 'dark') {
         isDark = true;
     }
-    // Если 'light' или null - оставляем светлую тему
     
     applyTheme(isDark);
     
     // Обработчик клика по переключателю
     themeToggle.addEventListener('click', function() {
-       
         const isCurrentlyDark = document.body.classList.contains('theme-dark');
         applyTheme(!isCurrentlyDark);
     });
-    
-    
 }
 
 // Функция применения темы
 function applyTheme(isDark) {
-    
     const themeToggle = document.querySelector('.theme-toggle');
     const icon = themeToggle?.querySelector('i');
     
@@ -59,38 +52,16 @@ function applyTheme(isDark) {
             themeToggle.setAttribute('data-theme', 'light');
             themeToggle.title = 'Переключить на темную тему';
         }
-        
-    }
-    
-    // Обновляем другие компоненты
-    updateVideoPlayerTheme(isDark);
-}
-
-function updateVideoPlayerTheme(isDark) {
-    const videoPlayer = document.querySelector('.enhanced-video-player');
-    if (videoPlayer) {
-        if (isDark) {
-            videoPlayer.classList.add('theme-dark');
-        } else {
-            videoPlayer.classList.remove('theme-dark');
-        }
     }
 }
 
 //ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ
 document.addEventListener('DOMContentLoaded', function() {
-    
     initTheme();
     initFormValidation();
     initPhoneMask();
     initCarousel();
-    initEnhancedVideoPlayer();
-});
-
-// Дублирующая инициализация на случай проблем
-window.addEventListener('load', function() {
-    // Проверяем, что тема применилась
-    const currentTheme = localStorage.getItem(THEME_KEY) || 'light';
+    initSimpleVideoPlayer();
 });
 
 // ВАЛИДАЦИЯ ФОРМ 
@@ -174,7 +145,7 @@ function initRealTimeValidation() {
     });
 }
 
-//  МАСКА ТЕЛЕФОНА
+// МАСКА ТЕЛЕФОНА
 function initPhoneMask() {
     const phoneInputs = document.querySelectorAll('input[type="tel"]');
     
@@ -241,9 +212,11 @@ function initCarousel() {
 function showAlert(message, type) {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.setAttribute('aria-live', 'polite');
     alertDiv.innerHTML = `
         ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
     `;
     
     document.querySelector('main').insertBefore(alertDiv, document.querySelector('main').firstChild);
@@ -290,49 +263,35 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-// ВИДЕО ПЛЕЕР
-function initEnhancedVideoPlayer() {
-    const videoPlayer = document.querySelector('.enhanced-video-player');
-    if (!videoPlayer) {
-        console.log('Video player not found');
-        return;
-    }
+//  ВИДЕОПЛЕЕР 
+function initSimpleVideoPlayer() {
+    const videoPlayer = document.querySelector('.simple-video-player');
+    if (!videoPlayer) return;
 
     const video = videoPlayer.querySelector('.video-element');
-    const overlay = videoPlayer.querySelector('.video-overlay');
-    const playPauseBtn = videoPlayer.querySelector('.play-pause-btn');
-    const bigPlayBtn = videoPlayer.querySelector('.btn-play-pause');
+    const playBtn = videoPlayer.querySelector('.play-btn');
+    const bigPlayBtn = videoPlayer.querySelector('.video-play-btn');
     const progressBar = videoPlayer.querySelector('.progress-bar');
-    const progressSlider = videoPlayer.querySelector('.progress-slider');
     const currentTimeEl = videoPlayer.querySelector('.current-time');
     const durationEl = videoPlayer.querySelector('.duration');
-    const volumeBtn = videoPlayer.querySelector('.volume-btn');
-    const volumeSlider = videoPlayer.querySelector('.volume-slider');
-    const volumeBar = videoPlayer.querySelector('.volume-slider-container .progress-bar');
     const fullscreenBtn = videoPlayer.querySelector('.fullscreen-btn');
-    const loadingIndicator = videoPlayer.querySelector('.video-loading');
+    const progressContainer = videoPlayer.querySelector('.progress');
+    const volumeBtn = videoPlayer.querySelector('.volume-btn');
+    const volumeControl = videoPlayer.querySelector('.volume-control');
 
-    console.log('Video elements found:', {
-        video: !!video,
-        playPauseBtn: !!playPauseBtn,
-        bigPlayBtn: !!bigPlayBtn,
-        progressBar: !!progressBar
-    });
-
-    // Проверка существования элементов
-    if (!video || !playPauseBtn || !bigPlayBtn) {
-        console.error('Essential video elements missing');
-        return;
-    }
-
-    let isSeeking = false;
-    let isControlsVisible = true;
-    let hideControlsTimeout;
+    // Создаем слайдер громкости
+    const volumeSlider = document.createElement('input');
+    volumeSlider.type = 'range';
+    volumeSlider.className = 'volume-slider';
+    volumeSlider.min = '0';
+    volumeSlider.max = '1';
+    volumeSlider.step = '0.1';
+    volumeSlider.value = '1';
+    volumeControl.appendChild(volumeSlider);
 
     // Форматирование времени
     function formatTime(seconds) {
         if (isNaN(seconds)) return '0:00';
-        
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -340,217 +299,111 @@ function initEnhancedVideoPlayer() {
 
     // Обновление интерфейса
     function updateInterface() {
-        // Иконки воспроизведения/паузы
-        const playIcons = videoPlayer.querySelectorAll('.bi-play-fill');
-        const pauseIcons = videoPlayer.querySelectorAll('.bi-pause');
-        
+        // Воспроизведение/пауза
         if (video.paused) {
             videoPlayer.classList.remove('video-playing');
-            playIcons.forEach(icon => icon.style.display = 'inline-block');
-            if (pauseIcons.length) {
-                pauseIcons.forEach(icon => icon.style.display = 'none');
-            }
         } else {
             videoPlayer.classList.add('video-playing');
-            playIcons.forEach(icon => icon.style.display = 'none');
-            if (pauseIcons.length) {
-                pauseIcons.forEach(icon => icon.style.display = 'inline-block');
-            }
         }
 
-        // Иконка громкости
-        if (volumeBtn) {
-            const volumeIcon = volumeBtn.querySelector('i');
-            if (video.muted || video.volume === 0) {
-                volumeIcon.className = 'bi bi-volume-mute';
-            } else if (video.volume < 0.5) {
-                volumeIcon.className = 'bi bi-volume-down';
-            } else {
-                volumeIcon.className = 'bi bi-volume-up';
-            }
-        }
-
-        // Полноэкранный режим
-        if (fullscreenBtn) {
-            const isFullscreen = document.fullscreenElement || 
-                               document.webkitFullscreenElement ||
-                               document.mozFullScreenElement;
-            const fullscreenIcon = fullscreenBtn.querySelector('i');
-            fullscreenIcon.className = isFullscreen ? 'bi bi-fullscreen-exit' : 'bi bi-arrows-fullscreen';
-        }
+        // Громкость
+        updateVolumeIcon();
     }
 
-    // Показать/скрыть контролы
-    function showControls() {
-        if (overlay) {
-            overlay.classList.add('controls-visible');
-            isControlsVisible = true;
-            clearTimeout(hideControlsTimeout);
-            
-            if (!video.paused) {
-                hideControlsTimeout = setTimeout(() => {
-                    if (!isSeeking) {
-                        overlay.classList.remove('controls-visible');
-                        isControlsVisible = false;
-                    }
-                }, 3000);
-            }
+    // Обновление иконки громкости
+    function updateVolumeIcon() {
+        volumeControl.classList.remove('volume-muted', 'volume-low', 'volume-normal');
+        
+        if (video.muted || video.volume === 0) {
+            volumeControl.classList.add('volume-muted');
+        } else if (video.volume < 0.5) {
+            volumeControl.classList.add('volume-low');
+        } else {
+            volumeControl.classList.add('volume-normal');
         }
     }
 
     // Обновление прогресса
     function updateProgress() {
-        if (!isSeeking && progressBar && progressSlider && currentTimeEl) {
+        if (!isNaN(video.duration)) {
             const percent = (video.currentTime / video.duration) * 100;
             progressBar.style.width = `${percent}%`;
-            progressSlider.value = percent;
             currentTimeEl.textContent = formatTime(video.currentTime);
         }
     }
 
     // Обновление длительности
     function updateDuration() {
-        if (durationEl && !isNaN(video.duration)) {
+        if (!isNaN(video.duration)) {
             durationEl.textContent = formatTime(video.duration);
         }
     }
 
-    // Управление воспроизведением
+    // Воспроизведение/пауза
     function togglePlay() {
-        try {
-            if (video.paused) {
-                video.play().then(() => {
-                    console.log('Video started playing');
-                }).catch(error => {
-                    console.error('Video play error:', error);
-                    // Показываем стандартные контролы если кастомные не работают
-                    video.setAttribute('controls', 'true');
-                });
-            } else {
-                video.pause();
+        if (video.paused) {
+            video.play().catch(console.error);
+        } else {
+            video.pause();
+        }
+        updateInterface();
+    }
+
+    // Перемотка по клику на прогресс-бар
+    function seekVideo(e) {
+        const rect = progressContainer.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        video.currentTime = percent * video.duration;
+    }
+
+    // Управление громкостью
+    function toggleMute() {
+        video.muted = !video.muted;
+        updateVolumeIcon();
+    }
+
+    function changeVolume(e) {
+        video.volume = e.target.value;
+        video.muted = (video.volume === 0);
+        updateVolumeIcon();
+    }
+
+    // Полноэкранный режим
+    function toggleFullscreen() {
+        const container = video.parentElement;
+        
+        if (!document.fullscreenElement) {
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) {
+                container.webkitRequestFullscreen();
             }
-            showControls();
-        } catch (error) {
-            console.error('Toggle play error:', error);
-            video.setAttribute('controls', 'true');
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
         }
     }
 
     // Назначение обработчиков
-    playPauseBtn.addEventListener('click', togglePlay);
+    playBtn.addEventListener('click', togglePlay);
     bigPlayBtn.addEventListener('click', togglePlay);
-
-    // Клик по видео для воспроизведения/паузы
     video.addEventListener('click', togglePlay);
-
-    // Прогресс-бар
-    if (progressSlider) {
-        progressSlider.addEventListener('input', () => {
-            isSeeking = true;
-            const seekTime = (progressSlider.value / 100) * video.duration;
-            video.currentTime = seekTime;
-            if (currentTimeEl) {
-                currentTimeEl.textContent = formatTime(video.currentTime);
-            }
-        });
-
-        progressSlider.addEventListener('change', () => {
-            isSeeking = false;
-        });
-    }
-
-    // Громкость
-    if (volumeSlider && volumeBar && volumeBtn) {
-        volumeSlider.addEventListener('input', () => {
-            video.volume = volumeSlider.value;
-            video.muted = (volumeSlider.value === 0);
-            volumeBar.style.width = `${volumeSlider.value * 100}%`;
-            updateInterface();
-        });
-
-        volumeBtn.addEventListener('click', () => {
-            video.muted = !video.muted;
-            if (!video.muted && video.volume === 0) {
-                video.volume = 0.5;
-                volumeSlider.value = 0.5;
-                volumeBar.style.width = '50%';
-            }
-            updateInterface();
-            showControls();
-        });
-    }
-
-    // Полноэкранный режим
-    if (fullscreenBtn) {
-        fullscreenBtn.addEventListener('click', () => {
-            const container = video.parentElement;
-            
-            if (!document.fullscreenElement) {
-                if (container.requestFullscreen) {
-                    container.requestFullscreen();
-                } else if (container.webkitRequestFullscreen) {
-                    container.webkitRequestFullscreen();
-                } else if (container.mozRequestFullScreen) {
-                    container.mozRequestFullScreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                }
-            }
-            showControls();
-        });
-    }
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    progressContainer.addEventListener('click', seekVideo);
+    volumeBtn.addEventListener('click', toggleMute);
+    volumeSlider.addEventListener('input', changeVolume);
 
     // События видео
     video.addEventListener('loadedmetadata', updateDuration);
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('play', updateInterface);
     video.addEventListener('pause', updateInterface);
-    video.addEventListener('volumechange', updateInterface);
-    
-    video.addEventListener('waiting', () => {
-        if (loadingIndicator) loadingIndicator.classList.remove('d-none');
-    });
-
-    video.addEventListener('canplay', () => {
-        if (loadingIndicator) loadingIndicator.classList.add('d-none');
-    });
-
-    video.addEventListener('ended', () => {
-        videoPlayer.classList.remove('video-playing');
-        showControls();
-    });
-
-    // Авто-скрытие контролов
-    video.addEventListener('play', () => {
-        setTimeout(() => {
-            if (!isSeeking && overlay) {
-                overlay.classList.remove('controls-visible');
-                isControlsVisible = false;
-            }
-        }, 3000);
-    });
-
-    // Мышь и тач события
-    if (overlay) {
-        videoPlayer.addEventListener('mousemove', showControls);
-        videoPlayer.addEventListener('touchstart', showControls);
-    }
+    video.addEventListener('volumechange', updateVolumeIcon);
 
     // Инициализация
     updateInterface();
-    showControls();
-
-    // Предзагрузка
-    video.preload = 'metadata';
-    
-    console.log('Video player initialized successfully');
+    updateVolumeIcon();
 }
-
-
-

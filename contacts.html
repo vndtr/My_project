@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Контакты - GSV</title>
     <meta name="description" content="Творческое пространство 'GSV'">
     <link rel="icon" href="assets/iconMoon.ico" type="image/x-icon">
@@ -92,44 +92,64 @@
                 <div class="card shadow-lg h-100">
                     <div class="card-body p-4">
                         <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Обратная связь</h2>
-                        
-                        <form id="contactForm">
-                            <div class="mb-3">
-                                <label for="contactName" class="form-label">Имя *</label>
-                                <input type="text" class="form-control" id="contactName" required minlength="2">
-                                <div class="invalid-feedback">Пожалуйста, введите имя</div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="contactEmail" class="form-label">Email *</label>
-                                <input type="email" class="form-control" id="contactEmail" required>
-                                <div class="invalid-feedback">Пожалуйста, введите корректный email</div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="contactSubject" class="form-label">Тема</label>
-                                <select class="form-select" id="contactSubject">
-                                    <option value="">Выберите тему</option>
-                                    <option>Общий вопрос</option>
-                                    <option>Запись на консультацию</option>
-                                    <option>Сотрудничество</option>
-                                    <option>Другое</option>
-                                </select>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="contactMessage" class="form-label">Сообщение *</label>
-                                <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
-                                <div class="invalid-feedback">Пожалуйста, введите сообщение</div>
-                            </div>
-                            
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="contactAgreement" required>
-                                <label class="form-check-label" for="contactAgreement">
-                                    Я согласен на обработку персональных данных
-                                </label>
-                                <div class="invalid-feedback">Необходимо согласие на обработку данных</div>
-                            </div>
+                        <form id="contactForm" aria-labelledby="contactFormTitle">
+                            <fieldset>
+                                <legend id="contactFormTitle" class="h3 mb-4">Форма обратной связи</legend>
+                                
+                                <div class="mb-3">
+                                    <label for="contactName" class="form-label">
+                                        Имя <span class="text-danger" aria-hidden="true">*</span>
+                                        <span class="visually-hidden">обязательное поле</span>
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="contactName" 
+                                           required 
+                                           minlength="2"
+                                           aria-required="true"
+                                           aria-describedby="nameHelp">
+                                    <div id="nameHelp" class="form-text">Минимум 2 символа</div>
+                                    <div class="invalid-feedback" role="alert">Пожалуйста, введите имя</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="contactEmail" class="form-label">
+                                        Email <span class="text-danger" aria-hidden="true">*</span>
+                                        <span class="visually-hidden">обязательное поле</span>
+                                    </label>
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="contactEmail" 
+                                           required
+                                           aria-required="true">
+                                    <div class="invalid-feedback" role="alert">Пожалуйста, введите корректный email</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="contactSubject" class="form-label">Тема</label>
+                                    <select class="form-select" id="contactSubject">
+                                        <option value="">Выберите тему</option>
+                                        <option>Общий вопрос</option>
+                                        <option>Запись на консультацию</option>
+                                        <option>Сотрудничество</option>
+                                        <option>Другое</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="contactMessage" class="form-label">Сообщение *</label>
+                                    <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+                                    <div class="invalid-feedback">Пожалуйста, введите сообщение</div>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="contactAgreement" required>
+                                    <label class="form-check-label" for="contactAgreement">
+                                        Я согласен на обработку персональных данных
+                                    </label>
+                                    <div class="invalid-feedback">Необходимо согласие на обработку данных</div>
+                                </div>
+                            </fieldset>
                             
                             <button type="submit" class="btn btn-primary btn-lg w-100">Отправить сообщение</button>
                         </form>
@@ -137,6 +157,7 @@
                 </div>
             </div>
         </div>
+    </main>
 
     <!-- Футер -->
     <footer class="bg-dark text-light py-4 mt-5">

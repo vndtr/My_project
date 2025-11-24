@@ -2,21 +2,22 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Творческое пространство "GSV"</title>
     <meta name="description" content="Творческое пространство 'GSV'">
     <link rel="icon" href="assets/iconMoon.ico" type="image/x-icon">
     
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link visually-hidden-focusable">
+        Перейти к основному содержимому
+    </a>
+    
     <!-- Навигация -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Основная навигация">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">GSV</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -25,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Главная</a>
+                        <a class="nav-link active" href="index.html" aria-current="page">Главная</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">О нас</a>
@@ -34,76 +35,72 @@
                         <a class="nav-link" href="contacts.html">Обратная связь</a>
                     </li>
                 </ul>
-              <button class="btn btn-outline-light theme-toggle" type="button" aria-pressed="false" title="Переключить на темную тему">
-    <i class="bi bi-moon"></i> Тема
-</button>
+                <button class="btn btn-outline-light theme-toggle" 
+                        type="button" 
+                        aria-pressed="false"
+                        aria-label="Переключить тему оформления">
+                    <i class="bi bi-moon" aria-hidden="true"></i>
+                    <span class="theme-text">Тема</span>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Основной контент -->
-    <main class="container mt-5 pt-4">
-        <!-- Хлебные крошки -->
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Главная</li>
-            </ol>
-        </nav>
-
+    <main class="container mt-5 pt-4" id="main-content" role="main">
         <h1 class="text-center mb-5 display-4 fw-bold text-primary">Творческое пространство "GSV"</h1>
 
         <!-- Секция услуг -->
-        <section class="card shadow-lg mb-5">
+        <section class="card shadow-lg mb-5 services-container">
             <div class="card-body p-4">
                 <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Наши услуги</h2>
                 
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 service-card position-relative">
-                            <div class="card-body text-center">
-                                <h3 class="h5">Татуировки</h3>
-                                <p class="text-muted">Индивидуальные эскизы и профессиональное нанесение</p>
-                            </div>
+                <div class="services-grid-cq">
+                    <!-- Карточка 1 -->
+                    <div class="card h-100 service-card service-card-cq">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Татуировки</h3>
+                            <p class="text-muted">Индивидуальные эскизы и профессиональное нанесение</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 service-card position-relative">
-                            <div class="card-body text-center">
-                                <h3 class="h5">Пирсинг</h3>
-                                <p class="text-muted">Безопасный пирсинг от опытных мастеров</p>
-                            </div>
+                    
+                    <!-- Карточка 2 -->
+                    <div class="card h-100 service-card service-card-cq">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Пирсинг</h3>
+                            <p class="text-muted">Безопасный пирсинг от опытных мастеров</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 service-card">
-                            <div class="card-body text-center">
-                                <h3 class="h5">Консультация</h3>
-                                <p class="text-muted">Профессиональная консультация по всем вопросам</p>
-                            </div>
+                    
+                    <!-- Карточка 3 -->
+                    <div class="card h-100 service-card service-card-cq">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Консультация</h3>
+                            <p class="text-muted">Профессиональная консультация по всем вопросам</p>
                         </div>
                     </div>
-                        <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 service-card">
-                            <div class="card-body text-center">
-                                <h3 class="h5">Коррекция</h3>
-                                <p class="text-muted">Исправление и доработка существующих работ</p>
-                            </div>
+                    
+                    <!-- Карточка 4 -->
+                    <div class="card h-100 service-card service-card-cq">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Коррекция</h3>
+                            <p class="text-muted">Исправление и доработка существующих работ</p>
                         </div>
                     </div>
-                         <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 service-card">
-                            <div class="card-body text-center">
-                                <h3 class="h5">Удаление</h3>
-                                <p class="text-muted">Современные методы удаления татуировок</p>
-                            </div>
+                    
+                    <!-- Карточка 5 -->
+                    <div class="card h-100 service-card service-card-cq">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Удаление</h3>
+                            <p class="text-muted">Современные методы удаления татуировок</p>
                         </div>
                     </div>
-                         <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 service-card">
-                            <div class="card-body text-center">
-                                <h3 class="h5">Обучение</h3>
-                                <p class="text-muted">Курсы для начинающих тату-мастеров</p>
-                            </div>
+                    
+                    <!-- Карточка 6 -->
+                    <div class="card h-100 service-card service-card-cq">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Обучение</h3>
+                            <p class="text-muted">Курсы для начинающих тату-мастеров</p>
                         </div>
                     </div>
                 </div>
@@ -113,111 +110,125 @@
                 </div>
             </div>
         </section>
-
       
-<!-- Видео секция -->
-<section class="card shadow-lg mb-5">
-    <div class="card-body p-4">
-        <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Смотрим на Depeche Mode 93 года</h2>
-        
-        <div class="enhanced-video-player">
-            <div class="video-container position-relative">
-                <video class="video-element w-100" poster="assets/video/poster.jpeg">
-                    <source src="assets/video/dm.mp4" type="video/mp4">
-                    Ваш браузер не поддерживает видео тег.
-                </video>
+        <!-- Видео секция -->
+        <section class="card shadow-lg mb-5">
+            <div class="card-body p-4">
+                <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Смотрим на Depeche Mode 93 года</h2>
                 
-                
-                <div class="video-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column">
-                    <!-- Центральные кнопки воспроизведения -->
-                    <div class="video-center-controls flex-grow-1 d-flex justify-content-center align-items-center">
-                        <button class="btn btn-play-pause btn-lg rounded-circle bg-dark bg-opacity-50 border-0 text-white" 
+                <div class="simple-video-player">
+                    <div class="video-wrapper position-relative">
+                        <video class="video-element w-100" 
+                               poster="assets/video/poster.jpeg"
+                               preload="metadata"
+                               playsinline>
+                            <source src="assets/video/dm.mp4" type="video/mp4">
+                            Ваш браузер не поддерживает видео тег.
+                        </video>
+                        
+                        <!-- Простая кнопка воспроизведения -->
+                        <button class="video-play-btn position-absolute top-50 start-50 translate-middle btn btn-lg rounded-circle bg-dark bg-opacity-50 border-0 text-white"
                                 style="width: 70px; height: 70px;">
                             <i class="bi bi-play-fill fs-4"></i>
                         </button>
-                    </div>
-                    
-                    <!-- Нижняя панель управления -->
-                    <div class="video-bottom-controls bg-dark bg-opacity-75 p-3">
-                        <!-- Прогресс-бар -->
-                        <div class="progress-container mb-2">
-                            <div class="progress-bar-container position-relative">
-                                <div class="progress bg-secondary bg-opacity-50" style="height: 6px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 0%"></div>
-                                </div>
-                                <input type="range" class="progress-slider position-absolute top-0 start-0 w-100 h-100 opacity-0" 
-                                       min="0" max="100" step="0.1" value="0">
-                            </div>
-                        </div>
                         
-                        <!-- Нижние контролы -->
-                        <div class="d-flex justify-content-between align-items-center">
+                        <!-- Простые контролы -->
+                        <div class="video-controls position-absolute bottom-0 start-0 w-100 bg-dark bg-opacity-75 p-2">
                             <div class="d-flex align-items-center">
-                                <!-- Кнопка воспроизведения -->
-                                <button class="btn btn-sm btn-outline-light play-pause-btn me-2">
+                                <button class="btn btn-sm btn-outline-light play-btn me-2">
                                     <i class="bi bi-play-fill"></i>
                                 </button>
                                 
-                                <!-- Время -->
-                                <span class="video-time text-white me-3">
+                                <span class="video-time text-white me-2">
                                     <span class="current-time">0:00</span> / 
                                     <span class="duration">0:00</span>
                                 </span>
                                 
+                                <div class="progress flex-grow-1 mx-2" style="height: 4px;">
+                                    <div class="progress-bar bg-danger" style="width: 0%"></div>
+                                </div>
+
                                 <!-- Громкость -->
-                                <div class="volume-controls d-flex align-items-center me-3">
+                                <div class="volume-control me-2">
                                     <button class="btn btn-sm btn-outline-light volume-btn">
                                         <i class="bi bi-volume-up"></i>
                                     </button>
-                                    <div class="volume-slider-container ms-2" style="width: 80px;">
-                                        <div class="progress bg-secondary bg-opacity-50" style="height: 4px;">
-                                            <div class="progress-bar bg-white" role="progressbar" style="width: 100%"></div>
-                                        </div>
-                                        <input type="range" class="volume-slider position-absolute w-100 opacity-0" 
-                                               min="0" max="1" step="0.1" value="1" style="height: 20px; top: -8px;">
-                                    </div>
                                 </div>
+                                
+                                <button class="btn btn-sm btn-outline-light fullscreen-btn">
+                                    <i class="bi bi-arrows-fullscreen"></i>
+                                </button>
                             </div>
-                            
-                            <!-- Полноэкранный режим -->
-                            <button class="btn btn-sm btn-outline-light fullscreen-btn">
-                                <i class="bi bi-arrows-fullscreen"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Индикатор загрузки -->
-                <div class="video-loading position-absolute top-50 start-50 translate-middle d-none">
-                    <div class="spinner-border text-light" role="status">
-                        <span class="visually-hidden">Загрузка...</span>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- Портфолио карусель -->
         <section class="card shadow-lg mb-5">
             <div class="card-body p-4">
-                <h2 class="card-title h3 mb-4">Портфолио</h2>
-                <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner rounded">
-                        <div class="carousel-item active">
-                            <img src="assets/Violator Depeche Mode.jpeg" class="d-block w-100" alt="Violator" style="height: 500px; object-fit: cover;">
+                <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Портфолио</h2>
+               
+                <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Портфолио работ">
+                    <div class="carousel-inner rounded" role="listbox">
+                        <div class="carousel-item active" role="option">
+                            <picture>
+                                <!-- Большое изображение для десктопов -->
+                                <source media="(min-width: 1200px)" srcset="assets/Violator%20Depeche%20Mode.jpeg">
+                                <!-- Среднее изображение для планшетов -->
+                                <source media="(min-width: 768px)" srcset="assets/Violator%20Depeche%20Mode.jpeg">
+                                <!-- Маленькое изображение для мобильных -->
+                                <img src="assets/Violator%20Depeche%20Mode.jpeg" 
+                                     class="d-block w-100" 
+                                     alt="Violator - альбом Depeche Mode"
+                                     width="800" 
+                                     height="500"
+                                     loading="eager"
+                                     decoding="async"
+                                     style="height: 500px; object-fit: cover; aspect-ratio: 16/10;">
+                            </picture>
+                          
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                 <h5>Violator</h5>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="assets/Depeche Mode (1).jpeg" class="d-block w-100" alt="Delta Machine" style="height: 500px; object-fit: cover;">
+                        <div class="carousel-item" role="option">
+                        <picture>
+                            <!-- Большое изображение для десктопов -->
+                            <source media="(min-width: 1200px)" srcset="assets/Depeche Mode (1).jpeg">
+                            <!-- Среднее изображение для планшетов -->
+                            <source media="(min-width: 768px)" srcset="assets/Depeche Mode (1).jpeg">
+                            <!-- Маленькое изображение для мобильных -->
+                            <img src="assets/Depeche Mode (1).jpeg" 
+                                 class="d-block w-100" 
+                                 alt="Delta Machine - альбом Depeche Mode"
+                                 width="800" 
+                                 height="500"
+                                 loading="eager"
+                                 decoding="async"
+                                 style="height: 500px; object-fit: cover; aspect-ratio: 16/10;">
+                            </picture>
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                 <h5>Delta Machine</h5>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="assets/Без названия (2).jpeg" class="d-block w-100" alt="Playing The Angel" style="height: 500px; object-fit: cover;">
+                        <div class="carousel-item" role="option">
+                            <picture>
+                                <!-- Большое изображение для десктопов -->
+                                <source media="(min-width: 1200px)" srcset="assets/Без названия (2).jpeg">
+                                <!-- Среднее изображение для планшетов -->
+                                <source media="(min-width: 768px)" srcset="assets/Без названия (2).jpeg">
+                                <!-- Маленькое изображение для мобильных -->
+                            <img src="assets/Без названия (2).jpeg" 
+                                 class="d-block w-100" 
+                                 alt="Playing The Angel - альбом Depeche Mode"
+                                 width="800" 
+                                 height="500"
+                                 loading="eager"
+                                 decoding="async"
+                                 style="height: 500px; object-fit: cover; aspect-ratio: 16/10;">
+                            </picture>
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                 <h5>Playing The Angel</h5>
                             </div>
@@ -256,7 +267,8 @@
     </footer>
 
     <!-- Модальное окно записи -->
-    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true" role="dialog"
+     aria-modal="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
