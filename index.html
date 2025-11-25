@@ -20,7 +20,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Основная навигация">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">GSV</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-label="Переключить навигацию" aria-expanded="false" aria-controls="navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -51,58 +52,58 @@
         <h1 class="text-center mb-5 display-4 fw-bold text-primary">Творческое пространство "GSV"</h1>
 
         <!-- Секция услуг -->
-        <section class="card shadow-lg mb-5 services-container">
+        <section class="card shadow-lg mb-5 services-container" aria-labelledby="services-heading">
             <div class="card-body p-4">
-                <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Наши услуги</h2>
+                <h2 id="services-heading" class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Наши услуги</h2>
                 
                 <div class="services-grid-cq">
                     <!-- Карточка 1 -->
-                    <div class="card h-100 service-card service-card-cq">
+                    <article class="card h-100 service-card service-card-cq">
                         <div class="card-body text-center">
                             <h3 class="h5">Татуировки</h3>
                             <p class="text-muted">Индивидуальные эскизы и профессиональное нанесение</p>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Карточка 2 -->
-                    <div class="card h-100 service-card service-card-cq">
+                    <article class="card h-100 service-card service-card-cq">
                         <div class="card-body text-center">
                             <h3 class="h5">Пирсинг</h3>
                             <p class="text-muted">Безопасный пирсинг от опытных мастеров</p>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Карточка 3 -->
-                    <div class="card h-100 service-card service-card-cq">
+                    <article class="card h-100 service-card service-card-cq">
                         <div class="card-body text-center">
                             <h3 class="h5">Консультация</h3>
                             <p class="text-muted">Профессиональная консультация по всем вопросам</p>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Карточка 4 -->
-                    <div class="card h-100 service-card service-card-cq">
+                    <article class="card h-100 service-card service-card-cq">
                         <div class="card-body text-center">
                             <h3 class="h5">Коррекция</h3>
                             <p class="text-muted">Исправление и доработка существующих работ</p>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Карточка 5 -->
-                    <div class="card h-100 service-card service-card-cq">
+                    <article class="card h-100 service-card service-card-cq">
                         <div class="card-body text-center">
                             <h3 class="h5">Удаление</h3>
                             <p class="text-muted">Современные методы удаления татуировок</p>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Карточка 6 -->
-                    <div class="card h-100 service-card service-card-cq">
+                    <article class="card h-100 service-card service-card-cq">
                         <div class="card-body text-center">
                             <h3 class="h5">Обучение</h3>
                             <p class="text-muted">Курсы для начинающих тату-мастеров</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 
                 <div class="text-center mt-4">
@@ -112,31 +113,33 @@
         </section>
       
         <!-- Видео секция -->
-        <section class="card shadow-lg mb-5">
+        <section class="card shadow-lg mb-5" aria-labelledby="video-heading">
             <div class="card-body p-4">
-                <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Смотрим на Depeche Mode 93 года</h2>
+                <h2 id="video-heading" class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Смотрим на Depeche Mode 93 года</h2>
                 
                 <div class="simple-video-player">
                     <div class="video-wrapper position-relative">
                         <video class="video-element w-100" 
                                poster="assets/video/poster.jpeg"
                                preload="metadata"
-                               playsinline>
+                               playsinline
+                               aria-label="Видео Depeche Mode 1993 года">
                             <source src="assets/video/dm.mp4" type="video/mp4">
                             Ваш браузер не поддерживает видео тег.
                         </video>
                         
                         <!-- Простая кнопка воспроизведения -->
                         <button class="video-play-btn position-absolute top-50 start-50 translate-middle btn btn-lg rounded-circle bg-dark bg-opacity-50 border-0 text-white"
-                                style="width: 70px; height: 70px;">
-                            <i class="bi bi-play-fill fs-4"></i>
+                                style="width: 70px; height: 70px;"
+                                aria-label="Воспроизвести видео">
+                            <i class="bi bi-play-fill fs-4" aria-hidden="true"></i>
                         </button>
                         
                         <!-- Простые контролы -->
                         <div class="video-controls position-absolute bottom-0 start-0 w-100 bg-dark bg-opacity-75 p-2">
                             <div class="d-flex align-items-center">
-                                <button class="btn btn-sm btn-outline-light play-btn me-2">
-                                    <i class="bi bi-play-fill"></i>
+                                <button class="btn btn-sm btn-outline-light play-btn me-2" aria-label="Воспроизвести">
+                                    <i class="bi bi-play-fill" aria-hidden="true"></i>
                                 </button>
                                 
                                 <span class="video-time text-white me-2">
@@ -144,19 +147,22 @@
                                     <span class="duration">0:00</span>
                                 </span>
                                 
-                                <div class="progress flex-grow-1 mx-2" style="height: 4px;">
+                                <div class="progress flex-grow-1 mx-2" style="height: 4px;" role="slider" aria-label="Прогресс видео" tabindex="0">
                                     <div class="progress-bar bg-danger" style="width: 0%"></div>
                                 </div>
 
                                 <!-- Громкость -->
                                 <div class="volume-control me-2">
-                                    <button class="btn btn-sm btn-outline-light volume-btn">
-                                        <i class="bi bi-volume-up"></i>
+                                    <button class="btn btn-sm btn-outline-light volume-btn" aria-label="Громкость">
+                                        <i class="bi bi-volume-up" aria-hidden="true"></i>
                                     </button>
+                                    <input type="range" class="volume-slider" 
+                                           min="0" max="1" step="0.1" value="1"
+                                           aria-label="Регулятор громкости">
                                 </div>
                                 
-                                <button class="btn btn-sm btn-outline-light fullscreen-btn">
-                                    <i class="bi bi-arrows-fullscreen"></i>
+                                <button class="btn btn-sm btn-outline-light fullscreen-btn" aria-label="Полноэкранный режим">
+                                    <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -166,92 +172,89 @@
         </section>
 
         <!-- Портфолио карусель -->
-        <section class="card shadow-lg mb-5">
+        <section class="card shadow-lg mb-5" aria-labelledby="portfolio-heading">
             <div class="card-body p-4">
-                <h2 class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Портфолио</h2>
+                <h2 id="portfolio-heading" class="card-title h3 mb-4 border-start border-4 border-primary ps-3">Портфолио</h2>
                
                 <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Портфолио работ">
                     <div class="carousel-inner rounded" role="listbox">
-                        <div class="carousel-item active" role="option">
+                        <div class="carousel-item active" role="option" aria-describedby="caption-violator">
+                             <div class="carousel-image-container">
                             <picture>
-                                <!-- Большое изображение для десктопов -->
-                                <source media="(min-width: 1200px)" srcset="assets/Violator%20Depeche%20Mode.jpeg">
-                                <!-- Среднее изображение для планшетов -->
-                                <source media="(min-width: 768px)" srcset="assets/Violator%20Depeche%20Mode.jpeg">
-                                <!-- Маленькое изображение для мобильных -->
-                                <img src="assets/Violator%20Depeche%20Mode.jpeg" 
-                                     class="d-block w-100" 
-                                     alt="Violator - альбом Depeche Mode"
-                                     width="800" 
-                                     height="500"
-                                     loading="eager"
-                                     decoding="async"
-                                     style="height: 500px; object-fit: cover; aspect-ratio: 16/10;">
+                                <source media="(min-width: 1200px)" srcset="assets/Без названия (1).jpg">
+                                <source media="(min-width: 768px)" srcset="assets/Без названия (1).jpg">
+                                <img src="assets/Без названия (1).jpg" 
+                                      class="carousel-image" 
+                                        alt="Обложка альбома Violator группы Depeche Mode"
+                                        width="600" 
+                                        height="600"
+                                        loading="eager"
+                                        decoding="async">
                             </picture>
-                          
-                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                <h5>Violator</h5>
+                          </div>
+  
+                            <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+                                <h3 id="caption-violator" class="carousel-title">Violator</h3>
                             </div>
                         </div>
-                        <div class="carousel-item" role="option">
-                        <picture>
-                            <!-- Большое изображение для десктопов -->
-                            <source media="(min-width: 1200px)" srcset="assets/Depeche Mode (1).jpeg">
-                            <!-- Среднее изображение для планшетов -->
-                            <source media="(min-width: 768px)" srcset="assets/Depeche Mode (1).jpeg">
-                            <!-- Маленькое изображение для мобильных -->
-                            <img src="assets/Depeche Mode (1).jpeg" 
-                                 class="d-block w-100" 
-                                 alt="Delta Machine - альбом Depeche Mode"
-                                 width="800" 
-                                 height="500"
-                                 loading="eager"
-                                 decoding="async"
-                                 style="height: 500px; object-fit: cover; aspect-ratio: 16/10;">
+                        <div class="carousel-item" role="option" aria-describedby="caption-delta">
+                            <div class="carousel-image-container">
+                            <picture>
+                                <source media="(min-width: 1200px)" srcset="assets/Без названия (3).jpg">
+                                <source media="(min-width: 768px)" srcset="assets/Без названия (3).jpg">
+                                <img src="assets/Без названия (3).jpg" 
+                                    class="carousel-image" 
+                                        alt="Обложка альбома Ultra группы Depeche Mode"
+                                        width="600" 
+                                        height="600"
+                                        loading="eager"
+                                        decoding="async">
                             </picture>
-                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                <h5>Delta Machine</h5>
+                            </div>
+                            <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+                                <h3 id="caption-delta" class="carousel-title">Ultra</h3>
                             </div>
                         </div>
-                        <div class="carousel-item" role="option">
+                        <div class="carousel-item" role="option" aria-describedby="caption-angel">
+                            <div class="carousel-image-container">
                             <picture>
-                                <!-- Большое изображение для десктопов -->
-                                <source media="(min-width: 1200px)" srcset="assets/Без названия (2).jpeg">
-                                <!-- Среднее изображение для планшетов -->
-                                <source media="(min-width: 768px)" srcset="assets/Без названия (2).jpeg">
-                                <!-- Маленькое изображение для мобильных -->
-                            <img src="assets/Без названия (2).jpeg" 
-                                 class="d-block w-100" 
-                                 alt="Playing The Angel - альбом Depeche Mode"
-                                 width="800" 
-                                 height="500"
-                                 loading="eager"
-                                 decoding="async"
-                                 style="height: 500px; object-fit: cover; aspect-ratio: 16/10;">
+                                <source media="(min-width: 1200px)" srcset="assets/Без названия.jpg">
+                                <source media="(min-width: 768px)" srcset="assets/Без названия.jpg">
+                                <img src="assets/Без названия.jpg" 
+                                    class="carousel-image"
+                                     alt="Обложка альбома Playing The Angel группы Depeche Mode"
+                                     width="600" 
+                                        height="600"
+                                        loading="eager"
+                                        decoding="async">
                             </picture>
-                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                <h5>Playing The Angel</h5>
+                            </div>
+                            <div class="carousel-caption bg-dark bg-opacity-50 rounded">
+                                <h3 id="caption-angel" class="carousel-title">Playing The Angel</h3>
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev"
+                            aria-label="Предыдущий слайд">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span class="visually-hidden">Предыдущий</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next"
+                            aria-label="Следующий слайд">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                        <span class="visually-hidden">Следующий</span>
                     </button>
                 </div>
             </div>
         </section>
 
         <!-- Форма записи -->
-        <section class="card shadow-lg mb-5">
+        <section class="card shadow-lg mb-5" aria-labelledby="booking-heading">
             <div class="card-body p-4 text-center">
-                <h2 class="card-title h3 mb-3">Запись на Услугу</h2>
+                <h2 id="booking-heading" class="card-title h3 mb-3">Запись на Услугу</h2>
                 <p class="text-muted mb-4">Оставьте заявку и наш менеджер свяжется с вами</p>
-                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bookingModal">
+                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                        aria-label="Открыть форму записи на услугу">
                     Записаться
                 </button>
             </div>
@@ -259,7 +262,7 @@
     </main>
 
     <!-- Футер -->
-    <footer class="bg-dark text-light py-4 mt-5">
+    <footer class="bg-dark text-light py-4 mt-5" role="contentinfo">
         <div class="container text-center">
             <p class="mb-2">© 2025 Творческое пространство "GSV". Все права защищены.</p>
             <p class="mb-0">Телефон: +7 (444) 444-44-44</p>
@@ -267,32 +270,32 @@
     </footer>
 
     <!-- Модальное окно записи -->
-    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true" role="dialog"
-     aria-modal="true">
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="bookingModalLabel">Запись на услугу</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h2 class="modal-title h5" id="bookingModalLabel">Запись на услугу</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
                     <form id="bookingForm">
                         <div class="mb-3">
                             <label for="name" class="form-label">Имя</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" class="form-control" id="name" required aria-required="true">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" id="email" required aria-required="true">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Телефон</label>
-                            <input type="tel" class="form-control" id="phone" required pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$">
+                            <input type="tel" class="form-control" id="phone" required pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+                                   aria-required="true">
                             <div class="form-text">Формат: +7 (900) 000-00-00</div>
                         </div>
                         <div class="mb-3">
                             <label for="service" class="form-label">Услуга</label>
-                            <select class="form-select" id="service" required>
+                            <select class="form-select" id="service" required aria-required="true">
                                 <option value="">Выберите услугу</option>
                                 <option>Тату</option>
                                 <option>Пирсинг</option>
@@ -301,7 +304,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Сообщение</label>
-                            <textarea class="form-control" id="message" rows="3" required></textarea>
+                            <textarea class="form-control" id="message" rows="3" required aria-required="true"></textarea>
                         </div>
                     </form>
                 </div>

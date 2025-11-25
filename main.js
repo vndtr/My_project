@@ -1,4 +1,4 @@
-//УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ 
+// УПРАВЛЕНИЕ ТЕМНОЙ ТЕМОЙ 
 const THEME_KEY = 'theme-preference';
 
 // Основная функция инициализации
@@ -26,6 +26,7 @@ function initTheme() {
 function applyTheme(isDark) {
     const themeToggle = document.querySelector('.theme-toggle');
     const icon = themeToggle?.querySelector('i');
+    const themeText = themeToggle?.querySelector('.theme-text');
     
     if (isDark) {
         // Включаем темную тему
@@ -35,9 +36,13 @@ function applyTheme(isDark) {
         if (icon) {
             icon.className = 'bi bi-sun'; // Солнце для темной темы
         }
+        if (themeText) {
+            themeText.textContent = 'Светлая';
+        }
         if (themeToggle) {
             themeToggle.setAttribute('data-theme', 'dark');
-            themeToggle.title = 'Переключить на светлую тему';
+            themeToggle.setAttribute('aria-label', 'Переключить на светлую тему');
+            themeToggle.setAttribute('aria-pressed', 'true');
         }
         
     } else {
@@ -48,9 +53,13 @@ function applyTheme(isDark) {
         if (icon) {
             icon.className = 'bi bi-moon'; // Луна для светлой темы
         }
+        if (themeText) {
+            themeText.textContent = 'Темная';
+        }
         if (themeToggle) {
             themeToggle.setAttribute('data-theme', 'light');
-            themeToggle.title = 'Переключить на темную тему';
+            themeToggle.setAttribute('aria-label', 'Переключить на темную тему');
+            themeToggle.setAttribute('aria-pressed', 'false');
         }
     }
 }
@@ -62,7 +71,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initPhoneMask();
     initCarousel();
     initSimpleVideoPlayer();
+    initAccessibility();
 });
+
+// ДОСТУПНОСТЬ
+function initAccessibility() {
+    // Добавляем aria-live регион для динамического контента
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.className = 'visually-hidden';
+    document.body.appendChild(liveRegion);
+}
 
 // ВАЛИДАЦИЯ ФОРМ 
 function initFormValidation() {
@@ -115,9 +135,12 @@ function validateForm(form) {
         if (!input.checkValidity()) {
             isValid = false;
             input.classList.add('is-invalid');
+            // Добавляем aria-invalid для доступности
+            input.setAttribute('aria-invalid', 'true');
         } else {
             input.classList.remove('is-invalid');
             input.classList.add('is-valid');
+            input.setAttribute('aria-invalid', 'false');
         }
     });
     
@@ -130,6 +153,7 @@ function initRealTimeValidation() {
             if (e.target.checkValidity()) {
                 e.target.classList.remove('is-invalid');
                 e.target.classList.add('is-valid');
+                e.target.setAttribute('aria-invalid', 'false');
             } else {
                 e.target.classList.remove('is-valid');
             }
@@ -140,6 +164,7 @@ function initRealTimeValidation() {
         if (e.target.matches('input, select, textarea')) {
             if (!e.target.checkValidity()) {
                 e.target.classList.add('is-invalid');
+                e.target.setAttribute('aria-invalid', 'true');
             }
         }
     });
@@ -193,6 +218,7 @@ function validatePhone(e) {
     const pattern = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     if (e.target.value && !pattern.test(e.target.value)) {
         e.target.classList.add('is-invalid');
+        e.target.setAttribute('aria-invalid', 'true');
     }
 }
 
@@ -205,6 +231,19 @@ function initCarousel() {
             interval: 5000,
             ride: 'carousel'
         });
+        
+        // Добавляем доступность для карусели
+        carousel.addEventListener('slid.bs.carousel', function(e) {
+            const activeItem = e.relatedTarget;
+            const caption = activeItem.querySelector('.carousel-caption h3');
+            if (caption) {
+                // Обновляем aria-live для скринридеров
+                const liveRegion = document.querySelector('[aria-live="polite"]');
+                if (liveRegion) {
+                    liveRegion.textContent = `Текущий слайд: ${caption.textContent}`;
+                }
+            }
+        });
     });
 }
 
@@ -214,9 +253,10 @@ function showAlert(message, type) {
     alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
     alertDiv.setAttribute('role', 'alert');
     alertDiv.setAttribute('aria-live', 'polite');
+    alertDiv.setAttribute('aria-atomic', 'true');
     alertDiv.innerHTML = `
         ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть уведомление"></button>
     `;
     
     document.querySelector('main').insertBefore(alertDiv, document.querySelector('main').firstChild);
@@ -240,6 +280,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth',
                     block: 'start'
                 });
+                
+                // Фокус на целевой элемент для доступности
+                if (target.hasAttribute('tabindex')) {
+                    target.focus();
+                }
             }
         });
     });
@@ -251,8 +296,11 @@ if ('IntersectionObserver' in window) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                }
                 img.classList.remove('lazy');
+                img.classList.add('loaded');
                 imageObserver.unobserve(img);
             }
         });
@@ -263,7 +311,7 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-//  ВИДЕОПЛЕЕР 
+// ВИДЕОПЛЕЕР 
 function initSimpleVideoPlayer() {
     const videoPlayer = document.querySelector('.simple-video-player');
     if (!videoPlayer) return;
@@ -278,16 +326,7 @@ function initSimpleVideoPlayer() {
     const progressContainer = videoPlayer.querySelector('.progress');
     const volumeBtn = videoPlayer.querySelector('.volume-btn');
     const volumeControl = videoPlayer.querySelector('.volume-control');
-
-    // Создаем слайдер громкости
-    const volumeSlider = document.createElement('input');
-    volumeSlider.type = 'range';
-    volumeSlider.className = 'volume-slider';
-    volumeSlider.min = '0';
-    volumeSlider.max = '1';
-    volumeSlider.step = '0.1';
-    volumeSlider.value = '1';
-    volumeControl.appendChild(volumeSlider);
+    const volumeSlider = videoPlayer.querySelector('.volume-slider');
 
     // Форматирование времени
     function formatTime(seconds) {
@@ -302,8 +341,12 @@ function initSimpleVideoPlayer() {
         // Воспроизведение/пауза
         if (video.paused) {
             videoPlayer.classList.remove('video-playing');
+            playBtn.setAttribute('aria-label', 'Воспроизвести видео');
+            bigPlayBtn.setAttribute('aria-label', 'Воспроизвести видео');
         } else {
             videoPlayer.classList.add('video-playing');
+            playBtn.setAttribute('aria-label', 'Приостановить видео');
+            bigPlayBtn.setAttribute('aria-label', 'Приостановить видео');
         }
 
         // Громкость
@@ -316,10 +359,13 @@ function initSimpleVideoPlayer() {
         
         if (video.muted || video.volume === 0) {
             volumeControl.classList.add('volume-muted');
+            volumeBtn.setAttribute('aria-label', 'Включить звук');
         } else if (video.volume < 0.5) {
             volumeControl.classList.add('volume-low');
+            volumeBtn.setAttribute('aria-label', 'Увеличить громкость');
         } else {
             volumeControl.classList.add('volume-normal');
+            volumeBtn.setAttribute('aria-label', 'Уменьшить громкость');
         }
     }
 
@@ -329,6 +375,10 @@ function initSimpleVideoPlayer() {
             const percent = (video.currentTime / video.duration) * 100;
             progressBar.style.width = `${percent}%`;
             currentTimeEl.textContent = formatTime(video.currentTime);
+            
+            // Обновляем ARIA для прогресс-бара
+            progressContainer.setAttribute('aria-valuenow', percent);
+            progressContainer.setAttribute('aria-valuetext', `${Math.round(percent)}% просмотрено`);
         }
     }
 
@@ -336,6 +386,7 @@ function initSimpleVideoPlayer() {
     function updateDuration() {
         if (!isNaN(video.duration)) {
             durationEl.textContent = formatTime(video.duration);
+            progressContainer.setAttribute('aria-valuemax', '100');
         }
     }
 
@@ -359,6 +410,10 @@ function initSimpleVideoPlayer() {
     // Управление громкостью
     function toggleMute() {
         video.muted = !video.muted;
+        if (!video.muted && video.volume === 0) {
+            video.volume = 0.5;
+            volumeSlider.value = 0.5;
+        }
         updateVolumeIcon();
     }
 
@@ -378,13 +433,40 @@ function initSimpleVideoPlayer() {
             } else if (container.webkitRequestFullscreen) {
                 container.webkitRequestFullscreen();
             }
+            fullscreenBtn.setAttribute('aria-label', 'Выйти из полноэкранного режима');
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.webkitExitFullscreen) {
                 document.webkitExitFullscreen();
             }
+            fullscreenBtn.setAttribute('aria-label', 'Полноэкранный режим');
         }
+    }
+
+    // Обработчики клавиатуры для прогресс-бара
+    function handleProgressKeydown(e) {
+        switch(e.key) {
+            case 'ArrowRight':
+            case 'ArrowUp':
+                e.preventDefault();
+                video.currentTime = Math.min(video.duration, video.currentTime + 5);
+                break;
+            case 'ArrowLeft':
+            case 'ArrowDown':
+                e.preventDefault();
+                video.currentTime = Math.max(0, video.currentTime - 5);
+                break;
+            case 'Home':
+                e.preventDefault();
+                video.currentTime = 0;
+                break;
+            case 'End':
+                e.preventDefault();
+                video.currentTime = video.duration;
+                break;
+        }
+        updateProgress();
     }
 
     // Назначение обработчиков
@@ -393,6 +475,7 @@ function initSimpleVideoPlayer() {
     video.addEventListener('click', togglePlay);
     fullscreenBtn.addEventListener('click', toggleFullscreen);
     progressContainer.addEventListener('click', seekVideo);
+    progressContainer.addEventListener('keydown', handleProgressKeydown);
     volumeBtn.addEventListener('click', toggleMute);
     volumeSlider.addEventListener('input', changeVolume);
 
@@ -403,7 +486,21 @@ function initSimpleVideoPlayer() {
     video.addEventListener('pause', updateInterface);
     video.addEventListener('volumechange', updateVolumeIcon);
 
+    // События полноэкранного режима
+    document.addEventListener('fullscreenchange', function() {
+        if (!document.fullscreenElement) {
+            fullscreenBtn.setAttribute('aria-label', 'Полноэкранный режим');
+        }
+    });
+
     // Инициализация
     updateInterface();
     updateVolumeIcon();
+    
+    // Устанавливаем начальные значения ARIA
+    progressContainer.setAttribute('role', 'slider');
+    progressContainer.setAttribute('aria-label', 'Прогресс просмотра видео');
+    progressContainer.setAttribute('tabindex', '0');
+    progressContainer.setAttribute('aria-valuemin', '0');
+    progressContainer.setAttribute('aria-valuenow', '0');
 }
